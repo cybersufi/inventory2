@@ -4,11 +4,13 @@ class Login extends CI_Controller {
 
 	private $CI;
 	private $sitename;
+	private $base_url;
 
 	public function __construct() {
 		parent::__construct();
 		$this->CI =& get_Instance();
 		$this->sitename = $this->CI->config->item('site_name');
+		$this->base_url = $this->CI->config->item('base_url');
 		$this->load->library('redux_auth');
 	}
 	
@@ -32,6 +34,7 @@ class Login extends CI_Controller {
 	
 	function doLogin() {
 		$sess_id = $this->session->userdata('id');
+		$data['base_url'] = $this->base_url;
 		if (empty($sess_id)) {
 			$config = array(
 				array(
@@ -79,7 +82,8 @@ class Login extends CI_Controller {
 						$data['msg'] = 'Access Denied.';
 				}
 				
-				$this->load->view('inventory/login/login_result', $data);
+				//$this->load->view('inventory/login/login_result', $data);
+				$this->load->view('administrator/login/login_index', $data);
 			}
 			else {
 				$data['success'] = 'false';

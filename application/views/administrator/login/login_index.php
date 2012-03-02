@@ -43,29 +43,21 @@
 	<div id="content-box">
 		<div id="element-box" class="login">
 			<div class="m wbg">
-				<h1>Administration Login</h1>	
+				<h1>Administrator Login</h1>	
 				<div id="system-message-container">
-					<?php /*
-					<dl id="system-message">
-						<dt class="error">Error</dt>
-						<dd class="error message">
-							<ul>
-								<li>Username and password do not match or you do not have an account yet.</li>
-							</ul>
-						</dd>
-						<dt class="warning">Warning</dt>
-						<dd class="warning message">
-							<ul>
-								<li>Username and password do not match or you do not have an account yet.</li>
-							</ul>
-						</dd>
-						<dt class="notice">Notice</dt>
-						<dd class="notice message">
-							<ul>
-								<li>Username and password do not match or you do not have an account yet.</li>
-							</ul>
-						</dd>
-					</dl>*/
+					<?php
+						if (isset ($success) && ($success == 'false')) {
+					?>
+						<dl id="system-message">
+							<dt class="error">Error</dt>
+							<dd class="error message">
+								<ul>
+									<li><?php echo $msg ?></li>
+								</ul>
+							</dd>
+						</dl>
+					<?php		
+						}
 					?>
 				</div>
 				<div id="section-box">
