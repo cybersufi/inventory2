@@ -45,16 +45,36 @@
 			<div class="m wbg">
 				<h1>Administration Login</h1>	
 				<div id="system-message-container">
+					<dl id="system-message">
+						<dt class="error">Error</dt>
+						<dd class="error message">
+							<ul>
+								<li>Username and password do not match or you do not have an account yet.</li>
+							</ul>
+						</dd>
+						<dt class="warning">Warning</dt>
+						<dd class="warning message">
+							<ul>
+								<li>Username and password do not match or you do not have an account yet.</li>
+							</ul>
+						</dd>
+						<dt class="notice">Notice</dt>
+						<dd class="notice message">
+							<ul>
+								<li>Username and password do not match or you do not have an account yet.</li>
+							</ul>
+						</dd>
+					</dl>
 				</div>
 				<div id="section-box">
 					<div class="m">
-						<form action="/administrator/login/doLogin" method="post" id="form-login">
+						<form action="<?php echo $base_url; ?>login/doLogin" method="post" id="form-login">
 							<fieldset class="loginform">
 								<label id="mod-login-username-lbl" for="mod-login-username">User Name</label>
 								<input name="username" id="mod-login-username" type="text" class="inputbox" size="15" />
 
 								<label id="mod-login-password-lbl" for="mod-login-password">Password</label>
-								<input name="passwd" id="mod-login-password" type="password" class="inputbox" size="15" />
+								<input name="password" id="mod-login-password" type="password" class="inputbox" size="15" />
 
 								<div class="button-holder">
 									<div class="button1">
