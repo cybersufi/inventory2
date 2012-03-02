@@ -45,6 +45,7 @@
 			<div class="m wbg">
 				<h1>Administration Login</h1>	
 				<div id="system-message-container">
+					<?php /*
 					<dl id="system-message">
 						<dt class="error">Error</dt>
 						<dd class="error message">
@@ -64,7 +65,8 @@
 								<li>Username and password do not match or you do not have an account yet.</li>
 							</ul>
 						</dd>
-					</dl>
+					</dl>*/
+					?>
 				</div>
 				<div id="section-box">
 					<div class="m">
