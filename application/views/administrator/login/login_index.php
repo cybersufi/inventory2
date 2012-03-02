@@ -10,10 +10,10 @@
 		$this->asset->stylesheet('administrator/template');
   	?>
   	<style type="text/css">
-		html { display:none }
+		/*html { display:none }*/
   	</style>
-  	<script src="/website/joomla/media/system/js/mootools-core.js" type="text/javascript"></script>
-  	<script src="/website/joomla/media/system/js/core.js" type="text/javascript"></script>
+  	<!--<script src="/website/joomla/media/system/js/mootools-core.js" type="text/javascript"></script>
+  	<script src="/website/joomla/media/system/js/core.js" type="text/javascript"></script>-->
 	<script type="text/javascript">
 		window.addEvent('domready', function () {
 			if (top == self) {
@@ -62,7 +62,7 @@
 				</div>
 				<div id="section-box">
 					<div class="m">
-						<form action="<?php echo $base_url; ?>login/doLogin" method="post" id="form-login">
+						<form action="<?php echo $base_url; ?>administrator/login/doLogin" method="post" id="form-login">
 							<fieldset class="loginform">
 								<label id="mod-login-username-lbl" for="mod-login-username">User Name</label>
 								<input name="username" id="mod-login-username" type="text" class="inputbox" size="15" />
