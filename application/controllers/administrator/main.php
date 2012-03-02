@@ -19,7 +19,7 @@ class Main extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('non_js/administrator/login/login_index');
+		$this->load->view('administrator/login/login_index');
 	}
 }
 

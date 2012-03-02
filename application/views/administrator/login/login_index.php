@@ -6,8 +6,8 @@
   	<meta name="generator" content="Joomla! - Open Source Content Management" />
   	<title>Inventory - Administration</title>
   	<?php
-  		$this->asset->stylesheet('non_js/administrator/system');
-		$this->asset->stylesheet('non_js/administrator/template');
+  		$this->asset->stylesheet('administrator/system');
+		$this->asset->stylesheet('administrator/template');
   	?>
   	<style type="text/css">
 		html { display:none }
