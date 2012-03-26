@@ -74,7 +74,7 @@
  *
  * Used to do RSA encryption.
  */
-require_once('Math/BigInteger.php');
+require_once(SSHDIR.'/Math/BigInteger.php');
 
 /**
  * Include Crypt_Null
@@ -84,22 +84,22 @@ require_once('Math/BigInteger.php');
 /**
  * Include Crypt_DES
  */
-require_once('Crypt/DES.php');
+require_once(SSHDIR.'/Crypt/DES.php');
 
 /**
  * Include Crypt_TripleDES
  */
-require_once('Crypt/TripleDES.php');
+require_once(SSHDIR.'/Crypt/TripleDES.php');
 
 /**
  * Include Crypt_RC4
  */
-require_once('Crypt/RC4.php');
+require_once(SSHDIR.'/Crypt/RC4.php');
 
 /**
  * Include Crypt_Random
  */
-require_once('Crypt/Random.php');
+require_once(SSHDIR.'/Crypt/Random.php');
 
 /**#@+
  * Protocol Flags

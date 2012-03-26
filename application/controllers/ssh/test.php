@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Test extends CI_Controller {
 
 	private $CI;
 	private $sitename;
@@ -20,8 +20,8 @@ class Login extends CI_Controller {
 	
 	function testCon() {
 		$this->ssh->setServer('10.9.13.10','root','kamina123');
-		echo 'test';
-		//echo $this->ex('ls');
+		$cmd = 'sh ~/get_nic.sh';
+		echo $this->ssh->ex($cmd);
 	}
 }
 

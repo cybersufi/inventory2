@@ -2,16 +2,23 @@
 class ssh {
 	private $tipe = 'localhost'; //localhost | IP Address SSH
 	private $user;
-	private $pass;	 	
+	private $pass;
+	
+	function ssh()
+	{
+		if ( ! defined('SSHDIR')) {
+			define('SSHDIR',APPPATH.'/libraries/ssh/');
+		}
+	}
 
-	public function setServer($srv,$user=false,$pass=false)
+	function setServer($srv,$user=false,$pass=false)
 	{
 		$this->tipe = $srv;
 		$this->user = $user;
 		$this->pass = $pass;	 	
 	}
 
-	public function ex($cmd)
+	function ex($cmd)
 	{
 		if($this->tipe == 'localhost')
 		{
@@ -20,7 +27,7 @@ class ssh {
 		}
 		else
 		{
-		    include_once(APPPATH.'/libraries/ssh/Net/SSH2.php');
+		    include_once(SSHDIR.'Net/SSH2.php');
 		    $ssh = new Net_SSH2($this->tipe);
 		    if (!$ssh->login($this->user, $this->pass)) 
 			{
@@ -35,7 +42,7 @@ class ssh {
 		}
 	}
 
-	public function setflush()
+	function setflush()
 	{
 		if (ob_get_length()){           
 		    @ob_flush();
