@@ -14,7 +14,7 @@ class Main extends CI_Controller {
 	{
 		//$data['base_url'] = $this->base_url;
 		$data['base_url'] = base_url();
-		$this->load->view('administrator/login/login_index', $data);
+		$this->load->view('administrator/login2/login_index', $data);
 	}
 }
 

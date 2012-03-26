@@ -1,0 +1,67 @@
+body {
+	background:url(../../../images/administrator/login/bg.jpg) no-repeat center top #310b28;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:0;
+	font-size:12px;
+	margin:0 auto;
+	color: #0e4354;
+}
+
+.clear {
+	clear:both;
+}
+
+a {
+	color:#256c89;
+}
+
+h2 {
+	font-size:18px;
+	color:#256c89;
+	font-weight:normal;
+	padding:0px 0 15px 0;
+	margin:0px;
+	clear:both;
+}
+
+h3 {
+	font-size:18px;
+	color:#256c89;
+	font-weight:normal;
+	padding:15px 0 5px 20px;
+	margin:0px;
+	float:left;
+	clear:both;
+}
+
+a.forgot_pass {
+	float:right;
+	color:#256c89;
+	text-decoration:none;
+	background:url(../../../images/administrator/login/help.png) no-repeat left;
+	padding:0 0 0 18px;
+	display:block;
+	margin:15px 20px 0 0;
+}
+
+#main_container {
+	margin:0 auto;
+	width:900px;
+	padding:0px 0 0px 0;
+}
+
+.header_login {
+	width:600px;
+	margin:auto;
+}
+
+.logo {
+	float:left;
+	padding:35px 0 0 0;
+}
+
+.footer_login {width:600px;margin:auto;}
+
+.left_footer_login {float:left;padding:15px 0 0 10px;color:#a8549b;font-size:11px;}
+.left_footer_login a {color:#FFFFFF;text-decoration:none;}
+.right_footer_login {float:right;padding:15px 10px 0 0;}
