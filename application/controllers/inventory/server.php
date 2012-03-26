@@ -1,15 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	
-class Server extends Controller {
+class Server extends CI_Controller {
 	
 	private $CI;
 	private $siteName;
 	private $isadmin;
 	private $isviewer;
 	
-	function Server()
-	{
-		parent::Controller();	
+	public function __construct() {
+		parent::__construct();	
 		$this->CI =& get_Instance();
 		$this->siteName = $this->CI->config->item('site_name');
 		$this->isadmin = $this->session->userdata('isadmin');
@@ -18,50 +17,50 @@ class Server extends Controller {
 
 	function Index() {
 		
-		if ($this->isadmin || $this->isviewer) {
+		//if ($this->isadmin || $this->isviewer) {
 	  	$data['site_name'] = $this->siteName." - Server List";
-			$this->load->view('inventory/serv_list_index', $data);
-		} else {
+			$this->load->view('inventory/server/serv_list_index', $data);
+		/*} else {
 			$data['heading'] = 'Access Forbidden';
 			$data['message'] = 'You have no privilege to access this page';
 			$this->load->view('error/error_403', $data);
-		}	
+		}*/
 	}
   
-  function getServerList() {
-  	$data['type'] = 'list';
-    $data['funcname'] = 'slist';
-    $data['res'] = null;
-    $data['total'] = 0;
-		
-		if ($this->isadmin || $this->isviewer) {
-	    $start = $this->input->post('start');
-	    $limit = $this->input->post('limit');
-	    $filters = $this->input->post('filter');
-	    $isFiltered = false;
-	    $sl = "";
-	    $this->load->model('inventory/ServerModel','sm');
+  	function getServerList() {
+  		$data['type'] = 'list';
+    	$data['funcname'] = 'slist';
+    	$data['res'] = null;
+    	$data['total'] = 0;
+			
+		//if ($this->isadmin || $this->isviewer) {
+	    	$start = $this->input->post('start');
+	    	$limit = $this->input->post('limit');
+	    	$filters = $this->input->post('filter');
+	    	$isFiltered = false;
+	    	$sl = "";
+	    	$this->load->model('inventory/ServerModel','sm');
 	    
-	    if (!empty($filters)) {
-	      $isFiltered = true;
-	      $filters = $this->filterParser($filters);
-	    }
+	    	if (!empty($filters)) {
+	      		$isFiltered = true;
+	      		$filters = $this->filterParser($filters);
+	    	}
 	    
-	    if (empty($start) && empty($limit)) {
-	      $sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList();
-	    } else if (empty($start)) {
-	      $sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList($limit);
-	    } else {
-	      $sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList($start, $limit);
-	    }
+		    if (empty($start) && empty($limit)) {
+		    	$sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList();
+		    } else if (empty($start)) {
+		    	$sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList($limit);
+		    } else {
+		    	$sl = ($isFiltered) ? $this->sm->getServerListFiltered($filters) : $this->sm->getServerList($start, $limit);
+		    }
 	    
-	    $data['type'] = 'list';
-	    $data['funcname'] = 'slist';
-	    $data['res'] = $sl->result();
-	    $data['total'] = ($isFiltered) ? $this->sm->getServerCount($filters) : $this->sm->getServerCount();
-    }
-    $this->load->view('inventory/server/server_res', $data);
-  }
+	    	$data['type'] = 'list';
+	    	$data['funcname'] = 'slist';
+	    	$data['res'] = $sl->result();
+	    	$data['total'] = ($isFiltered) ? $this->sm->getServerCount($filters) : $this->sm->getServerCount();
+    	//}
+    	$this->load->view('inventory/server/server_res', $data);
+	}
 	
   function addServer() {
     $data['type'] = 'form';
