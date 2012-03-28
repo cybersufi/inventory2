@@ -5,7 +5,7 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="-1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><?php echo $site_name; ?> - Dashboard Admin Panel</title>
+	<title><?php echo $this->CI->config->item('site_name'); ?> - Dashboard Admin Panel</title>
 	<?php
 		$this->asset->stylesheet('administrator/main/layout');
 		$this->asset->javascript('administrator/main/jquery-1.5.2.min');
@@ -50,8 +50,8 @@
 <body>
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Site Administration</a></h1>
-			<h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">View Site</a></div>
+			<h1 class="site_title"><a href="<?php echo $this->config->base_url().'administrator/'; ?>">Site Administration</a></h1>
+			<h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="<?php echo $this->config->base_url(); ?>">View Site</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
@@ -61,7 +61,7 @@
 			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
+			<article class="breadcrumbs"><a href="<?php echo $this->config->base_url().'administrator/'; ?>">Website Admin</a> <div class="breadcrumb_divider"></div>  <a class="current">Dashboard</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 	

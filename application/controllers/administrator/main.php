@@ -15,9 +15,10 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		//$data['base_url'] = $this->base_url;
-		$data['base_url'] = base_url();
-		$data['site_name'] = $this->sitename;
-		$this->load->view('administrator/main2/main_index', $data);
+		//$data['base_url'] = base_url();
+		//$data['site_name'] = $this->sitename;
+		//$this->load->view('administrator/main2/main_index', $data);
+		$this->template->render();
 	}
 }
 
