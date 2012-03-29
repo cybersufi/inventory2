@@ -32,6 +32,10 @@ class Login extends CI_Controller {
 		}
 	}*/
 	
+	function test() {
+		echo "test";
+	}
+	
 	function doLogin() {
 		$sess_id = $this->session->userdata('id');
 		$data['base_url'] = $this->base_url;

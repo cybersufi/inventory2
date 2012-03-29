@@ -57,7 +57,13 @@
 	</section><!-- end of secondary bar -->
 	
 	<aside id="sidebar" class="column">
+		<hr />
 		<?php echo $sidebar; ?>
+		<footer>
+			<hr />
+			<p><strong>Copyright &copy; 2012 UNIX Team</strong></p>
+			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p>
+		</footer>
 	</aside><!-- end of sidebar -->
 	
 	<section id="main" class="column">
