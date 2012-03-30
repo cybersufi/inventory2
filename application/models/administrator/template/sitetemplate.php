@@ -49,6 +49,33 @@ class SiteTemplate extends CI_Model {
 			)
 		);
 		
+		$res[] = array(
+			'text' => 'Group',
+			'links' => array (
+				array (
+					'text' => 'Show Group',
+					'link' => '#',
+					'icon_cls' => 'icn_view_users',
+				),
+				array (
+					'text' => 'New Group',
+					'link' => '#',
+					'icon_cls' => 'icn_add_user',
+				),
+			)
+		);
+		
+		$res[] = array(
+			'text' => 'Admin',
+			'links' => array (
+				array (
+					'text' => 'Logout',
+					'link' => '#',
+					'icon_cls' => 'icn_jump_back',
+				),
+			)
+		);
+		
 		return $res;
 	}
 	
