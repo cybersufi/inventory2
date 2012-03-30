@@ -26,8 +26,6 @@ class Main extends CI_Controller {
 		$this->prepareSecondaryBar();
 		$this->prepareSiteNav();
 		$this->template->render();
-		
-		//$this->login->test();
 	}
 	
 	private function prepareHeader() {
@@ -46,5 +44,4 @@ class Main extends CI_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+?>

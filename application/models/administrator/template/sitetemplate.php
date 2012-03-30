@@ -33,7 +33,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show User',
-					'link' => '#',
+					'link' => 'user',
 					'icon_cls' => 'icn_view_users',
 				),
 				array (
