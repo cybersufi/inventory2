@@ -16,14 +16,14 @@ class SiteTemplate extends CI_Model {
 			'text' => 'Content',
 			'links' => array (
 				array (
-					'text' => 'New Link',
-					'link' => '#',
-					'icon_cls' => 'default',
-				),
-				array (
 					'text' => 'Show Link',
 					'link' => '#',
-					'icon_cls' => 'default',
+					'icon_cls' => 'icn_categories',
+				),
+				array (
+					'text' => 'New Link',
+					'link' => '#',
+					'icon_cls' => 'icn_new_article',
 				),
 			)
 		);
@@ -32,19 +32,19 @@ class SiteTemplate extends CI_Model {
 			'text' => 'User',
 			'links' => array (
 				array (
-					'text' => 'New User',
-					'link' => '#',
-					'icon_cls' => 'default',
-				),
-				array (
 					'text' => 'Show User',
 					'link' => '#',
-					'icon_cls' => 'default',
+					'icon_cls' => 'icn_view_users',
+				),
+				array (
+					'text' => 'New User',
+					'link' => '#',
+					'icon_cls' => 'icn_add_user',
 				),
 				array (
 					'text' => 'Your Account',
 					'link' => '#',
-					'icon_cls' => 'default',
+					'icon_cls' => 'icn_profile',
 				),
 			)
 		);

@@ -67,6 +67,7 @@
 	</aside><!-- end of sidebar -->
 	
 	<section id="main" class="column">
+		<?php echo $messages; ?>
 		<?php echo $content; ?>
 	</section>
 	
