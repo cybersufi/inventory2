@@ -16,17 +16,16 @@ class User extends CI_Controller {
 		$this->breadcumbs = array();
 	}
 	
-	public function index()
-	{
-		//$data['base_url'] = $this->base_url;
-		//$data['base_url'] = base_url();
-		//$data['site_name'] = $this->sitename;
-		//$this->load->view('administrator/main2/main_index', $data);
+	public function index() {
 		$this->prepareHeader();
 		$this->prepareSecondaryBar();
 		$this->prepareSiteNav();
 		$this->loadContent();
 		$this->template->render();
+	}
+	
+	public function showUser() {
+		
 	}
 	
 	private function loadContent() {

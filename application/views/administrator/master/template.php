@@ -69,6 +69,7 @@
 	<section id="main" class="column">
 		<?php echo $messages; ?>
 		<?php echo $content; ?>
+		<div class="spacer"></div>
 	</section>
 	
 </body>
