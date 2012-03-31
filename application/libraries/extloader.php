@@ -5,12 +5,17 @@ class extloader{
 	private $CI;
 	private $base_url;
 	private $ext_url;
+	private $extconfig;
 	
 	function extloader()
 	{
 		$this->CI =& get_instance();
+		include(APPPATH.'config/ext.php');
+		if (isset($ext)) {
+			$this->extconfig = $ext;
+		}
 		$this->base_url = $this->CI->config->item('base_url');
-		$this->ext_url = $this->base_url . 'ext/';
+		$this->ext_url = $this->extconfig['ext_url'];
 	}
 	
 	function  loadbase() {

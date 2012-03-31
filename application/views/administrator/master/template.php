@@ -20,6 +20,10 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<script type="text/javascript">
+		var site_url = <?php echo $this->config->base_url(); ?>;
+		var sitename = <?php echo $this->CI->config->item('site_name'); ?>;
+	</script>
+	<script type="text/javascript">
 		$(document).ready(function() { 
 			$(".tablesorter").tablesorter(); 
 	   	});

@@ -17,7 +17,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show Link',
-					'link' => '#',
+					'link' => 'menu',
 					'icon_cls' => 'icn_categories',
 				),
 				array (
