@@ -72,7 +72,7 @@ $template['default']['parse_template'] = FALSE;
 |--------------------------------------------------------------------------
 */
 $template['admin']['template'] = 'administrator/master/template';
-$template['admin']['regions'] = array ('header', 'secondary_bar', 'sidebar', 'messages', 'content');
+$template['admin']['regions'] = array ('javascript', 'header', 'secondary_bar', 'sidebar', 'messages', 'content');
 $template['admin']['parser'] = 'parser';
 $template['admin']['parser_method'] = 'parse';
 $template['admin']['parse_template'] = FALSE;

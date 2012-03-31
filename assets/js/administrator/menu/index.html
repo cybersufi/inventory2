@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>403 Forbidden</title>
+	<style type="text/css">
+		body {
+			font-family: Helvetica, Arial, sans-serif;
+			background-color: #CCC;
+			-webkit-linear-gradient(#CCC, #AAA);
+			-moz-linear-gradient(#CCC, #AAA);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#CCCCCC, endColorStr=#AAAAAA, GradientType=1);
+			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#CCCCCC, endColorstr=#AAAAAA, GradientType=1)";
+			background-attachment: fixed;
+		}
+	</style>
+</head>
+<body>
+	<iframe id="iframe-div" frameborder="0" scrolling="auto" src="" width="100%" height="100%"></iframe>
+    	<script type="text/javascript">
+    		function getBaseURL() {
+			var url = location.href;  // entire url including querystring - also: window.location.href;
+			var baseURL = url.substring(0, url.indexOf('/', 14));
+			
+			if (baseURL.indexOf('http://localhost') != -1) {
+				// Base Url for localhost
+				var url = location.href;  // window.location.href;
+				var pathname = location.pathname;  // window.location.pathname;
+				var index1 = url.indexOf(pathname);
+				var index2 = url.indexOf("/", index1 + 1);
+				var baseLocalUrl = url.substr(0, index2);
+			
+				//return baseLocalUrl + "/";
+				return baseLocalUrl + "/";
+			} else {
+				// Root Url for domain name
+				return baseURL + "/";
+			}
+		}
+		
+		function change_parent_url(site_url) {
+			if (self == top) {
+				document.location = site_url;
+			} else {
+				parent.change_parent_url(site_url);
+			}
+   		}
+		
+		var url = getBaseURL();
+		var ifrm = document.getElementById('iframe-div');
+		ifrm.src = url+"forbidden.html";
+	</script>
+</body>
+</html>

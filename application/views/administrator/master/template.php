@@ -12,6 +12,8 @@
 		$this->asset->javascript('administrator/main/hideshow');
 		$this->asset->javascript('administrator/main/jquery.tablesorter.min');
 		$this->asset->javascript('administrator/main/jquery.equalHeight');
+		
+		echo $javascript;
 	?>
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
