@@ -65,7 +65,7 @@
 	<aside id="sidebar" class="column">
 		<hr />
 		<?php echo $sidebar; ?>
-		<footer>
+		<footer style="height: 100%">
 			<hr />
 			<p><strong>Copyright &copy; 2012 UNIX Team</strong></p>
 			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p>

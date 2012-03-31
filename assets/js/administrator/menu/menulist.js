@@ -37,7 +37,7 @@ Ext.define('App.SiteAdmin.MenuList', {
        	dataIndex: 'menudesc',
        	id: 'menudesc',
        	header: 'Description',
-       	flex: 1,
+       	flex: 0.6,
    	}, {
        	dataIndex: 'menucount',
        	id: 'menucount',
@@ -55,7 +55,18 @@ Ext.define('App.SiteAdmin.MenuList', {
     	sortable: true,
     	align: 'center',
     	flex: 0.17,
-	}],
+	}, {
+    	xtype: 'actioncolumn',
+    	width: 50,
+    	items: [{
+        	icon   : '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
+        	tooltip: 'Sell stock',
+        	handler: function(grid, rowIndex, colIndex) {
+            	var rec = store.getAt(rowIndex);
+            	alert("Sell " + rec.get('company'));
+        	}
+       }]
+    }],
     	
 	viewConfig: {
 		forceFit: true,

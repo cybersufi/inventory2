@@ -1,0 +1,81 @@
+html {
+	-webkit-font-smoothing:antialiased;
+    margin:0;
+    padding:0;
+    border:0 none;
+    height:100%;
+}
+
+body {
+	font-family:'lucida grande',tahoma,arial,sans-serif;
+	font-size:11px;
+	background:#FFFFFF;
+	margin:0;
+    padding:0;
+    border:0 none;
+    height:100%;
+}
+
+#loading-mask-menu {
+	position:absolute;
+	left:0;
+	top:0;
+    width:100%;
+    height:100%;
+    z-index:20000;
+    background:#3c5a76;
+}
+
+#loading-menu {
+	position:absolute;
+	top:40%;
+	padding:2px;
+	z-index:20001;
+    height:auto;
+    width:100%;
+}
+
+#loading-menu img {
+    margin-bottom:5px;
+}
+
+#loading-menu .loading-indicator{
+	background:#3c5a76;
+	color:#555;
+	padding:10px;
+	margin:0;
+    text-align:center;
+    height:auto;
+    font:bold 13px  Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    position:absolute;
+    top:35%;
+    left:43%;
+    background-repeat: no-repeat;
+    background-position:left 5px;
+}
+
+#loading-menu h1 {
+	font:bold 13px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    margin:5px;
+    color:#fff;
+	font-weight:bold;
+	text-shadow:0 1px 4px rgba(0,0,0,0.68);
+	letter-spacing:-1px;
+	margin:0;
+}
+
+.add {
+    background-image:url(../../../images/siteadmin/icons/group-add.png) !important;
+}
+
+.remove {
+    background-image:url(../../../images/siteadmin/icons/group-del.png) !important;
+}
+
+.edit {
+    background-image:url(../../../images/siteadmin/icons/group-edit.png) !important;
+}
+
+.refresh {
+    background-image:url(../../../images/siteadmin/icons/refresh.png) !important;
+}
