@@ -1,12 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class SiteTemplate extends CI_Model {
-  
+	
+	private $CI;
+	private $base_url;
+  	
   	function __construct() {
     	parent::__construct();
-    	$this->serverlist = 'app_serverlist';
-    	$this->servertype = 'app_servertype';
-    	$this->servernic = 'app_serverniclist';
+		$this->CI =& get_instance();
+		$this->base_url = $this->CI->config->item('base_url');
   	}
 	
 	public function siteNavigation() {
@@ -17,7 +19,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show Link',
-					'link' => 'menu',
+					'link' => $this->base_url.'administrator/menu',
 					'icon_cls' => 'icn_categories',
 				),
 				array (
@@ -33,7 +35,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show User',
-					'link' => 'user',
+					'link' => $this->base_url.'administrator/user',
 					'icon_cls' => 'icn_view_users',
 				),
 				array (
