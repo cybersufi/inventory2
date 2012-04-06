@@ -322,23 +322,32 @@ class User extends CI_Controller {
 		
 		//$issiteadmin = $this->session->userdata('issiteadmin');
 		//if ($issiteadmin) {
-			$start = $this->input->post('start');
-	    	$limit = $this->input->post('limit');
-	    	$filters = $this->input->post('filter');
+			$start = $this->input->get_post('start');
+	    	$limit = $this->input->get_post('limit');
+	    	$filters = $this->input->get_post('filter');
+			$sort = $this->input->get_post('sort');
 	    	$isFiltered = false;
+			$isSorted = false;
 	    	$sl = "";
-	    
+	    	
 		    if (!empty($filters)) {
 		      	$isFiltered = true;
 		      	$filters = $this->filterParser($filters);
 		    }
+			
+			if (!empty($sort)) {
+				$isSorted = true;
+				$sort = $this->sortParser($sort);
+			} else {
+				$sort = NULL;
+			}
 	    
 		    if (empty($start) && empty($limit)) {
-		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($filters) : $this->um->getUserList();
+		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($sort, $filters) : $this->um->getUserList($sort);
 		    } else if (empty($start)) {
-		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($filters) : $this->um->getUserList($limit);
+		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($limit, $sort, $filters) : $this->um->getUserList($limit, $sort);
 		    } else {
-		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($filters) : $this->um->getUserList($start, $limit);
+		      	$sl = ($isFiltered) ? $this->um->getUserListFiltered($start, $limit, $sort, $filters) : $this->um->getUserList($start, $limit, $sort);
 		    }
 			
 	    	$data['type'] = 'list';
@@ -473,6 +482,29 @@ class User extends CI_Controller {
     			}
 		}
     		$this->load->view($this->result, $data);
+	}
+	
+	private function sortParser($sorter) {
+		$sorter = json_decode($sorter);
+		$sort = NULL;
+		for ($i=0; $i < count($sorter); $i++) { 
+			$sortitem = $sorter[$i];
+			switch ($sortitem->property) {
+				case 'id':
+					$sort['property'] = 'uid';
+				break;
+				case 'usergroup':
+					$sort['property'] = 'groupname';
+				break;
+				case 'status' :
+					$sort['property'] = 'activation_code';
+				break;
+				default :
+					$sort['property'] = $sortitem->property;
+			}
+			$sort['direction'] = $sortitem->direction;
+		}
+		return $sort;
 	}
 	
 	private function filterParser($filters) {

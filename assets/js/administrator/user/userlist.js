@@ -5,7 +5,7 @@ Ext.define('UserData', {
       	{name: 'username', type: 'string'},
  		{name: 'email', type: 'string'},
  		{name: 'usergroup', type: 'string'},
- 		{name: 'status', type: 'string'},
+ 		{name: 'status', type: 'boolean'},
  		{name: 'lastlogin', type: 'string'},
  		{name: 'ipaddress', type: 'strin'},
   	],
@@ -48,9 +48,12 @@ Ext.define('App.Administrator.UserList', {
     	align: 'center',
        	flex: 0.2,
    	}, {
+   		xtype: 'booleancolumn',
 		dataIndex: 'status',
     	id: 'status',
     	header: 'User Status',
+    	trueText: 'Active',
+    	falseText: 'Inactive',
     	sortable: true,
     	align: 'center',
     	flex: 0.17,
@@ -59,7 +62,14 @@ Ext.define('App.Administrator.UserList', {
     	width: 50,
     	items: [{
         	icon   : '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
-        	tooltip: 'Sell stock',
+        	tooltip: 'Edit User',
+        	handler: function(grid, rowIndex, colIndex) {
+            	var rec = store.getAt(rowIndex);
+            	alert("Sell " + rec.get('company'));
+        	}
+       }, {
+        	icon   : '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
+        	tooltip: 'Delete User',
         	handler: function(grid, rowIndex, colIndex) {
             	var rec = store.getAt(rowIndex);
             	alert("Sell " + rec.get('company'));

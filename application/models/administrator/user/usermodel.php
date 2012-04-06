@@ -23,23 +23,23 @@ class Usermodel extends CI_Model {
 	public function __call($name, $arguments) {
 		switch ($name) {
       		case 'getUserList' :
-        			if (count($arguments) == 0) {
-					return $this->userList1();
-        			} else if (count($arguments) ==  1) {
-          			return $this->userList2($arguments[0]);
-        			} else if (count($arguments) == 2) {
-          			return $this->userList3($arguments[0],$arguments[1]);
-        			} else {
+        		if (count($arguments) == 1) {
+					return $this->userList1($arguments[0]);
+        		} else if (count($arguments) ==  2) {
+          			return $this->userList2($arguments[0], $arguments[1]);
+        		} else if (count($arguments) == 3) {
+          			return $this->userList3($arguments[0],$arguments[1], $arguments[2]);
+        		} else {
           			trigger_error("Method <strong>$name</strong> with argument ". implode (',', $arguments)."doesn't exist", E_USER_ERROR);
-        			}
+        		}
         	break;
       		case 'getUserListFiltered' :
-        			if (count($arguments) == 1) {
-		          	return $this->userList1($arguments[0]);
-		        	} else if (count($arguments) == 2) {
-		          	return $this->userList2($arguments[0],$arguments[1]);
+        			if (count($arguments) == 2) {
+		          	return $this->userList1($arguments[0], $arguments[1]);
 		        	} else if (count($arguments) == 3) {
-		          	return $this->userList3($arguments[0],$arguments[1], $arguments[2]);
+		          	return $this->userList2($arguments[0],$arguments[1], $arguments[2]);
+		        	} else if (count($arguments) == 4) {
+		          	return $this->userList3($arguments[0],$arguments[1], $arguments[2], $arguments[3]);
 		        	} else {
 		          	trigger_error("Method <strong>$name</strong> with argument ". implode (',', $arguments)."doesn't exist", E_USER_ERROR);
 		        	}
@@ -156,20 +156,20 @@ class Usermodel extends CI_Model {
 	    	return $this->db->count_all_results();
   	}
   
-  	private function userList1($filters=NULL) {    
-    		return $this->userList2(0,$filters);
+  	private function userList1($sorter=NULL, $filters=NULL) {    
+    		return $this->userList2(0, $sorter, $filters);
   	}
   
-  	private function userList2($l,$filters=NULL) {
-    		return $this->userList3(0, $l, $filters);
+  	private function userList2($l, $sorter=NULL, $filters=NULL) {
+    		return $this->userList3(0, $l, $sorter, $filters);
   	}
   
-  	private function userList3($s, $l, $filters=NULL) {
-    		$ul = $this->user_tbl;
+  	private function userList3($s, $l, $sorter=NULL, $filters=NULL) {
+    	$ul = $this->user_tbl;
 		$gl = $this->group_tbl;
 		$bl = $this->banned_tbl;
     
-    		$this->db->select($ul.'.id as uid, '.
+    	$this->db->select($ul.'.id as uid, '.
 					  $ul.'.username, '.
 					  $ul.'.activation_code, '.
 					  $ul.'.email, '.
@@ -177,21 +177,25 @@ class Usermodel extends CI_Model {
 					  $ul.'.ipaddress, '.
 					  $gl.'.title as groupname, '.
 					  $bl.'.reason')
-    		->from($ul)
-    		->join($gl, $gl.'.id = '.$ul.'.group_id','left')
+    	->from($ul)
+    	->join($gl, $gl.'.id = '.$ul.'.group_id','left')
 		->join($bl, $bl.'.id = '.$ul.'.banned_id','left');
     
-	    	if ($filters != NULL) {
+	    if ($filters != NULL) {
 	      	$this->db->where($filters, NULL, FALSE);
-	    	}
-    
-	    	if ($l > 0) {
+	    }
+    	
+		if ($sorter != NULL) {
+			$this->db->order_by($sorter['property'], $sorter['direction']);
+		}
+		
+	    if ($l > 0) {
 	      	$this->db->limit($l,$s);
-	    	}
+	    }
     
-    		$res = $this->db->get();
+    	$res = $this->db->get();
     
-    		return ($res->num_rows() > 0) ? $res : false;
+    	return ($res->num_rows() > 0) ? $res : false;
   	}
 	
 	function getUserCredential1($username) {

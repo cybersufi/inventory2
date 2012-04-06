@@ -13,7 +13,7 @@ switch($type) {
 						$cur_row['username'] = $row->username;
 						$cur_row['email'] = $row->email;
 						$cur_row['usergroup'] = $row->groupname;
-						$cur_row['status'] = ($row->activation_code == 1) ? 'Active' : 'Inactive';
+						$cur_row['status'] = ($row->activation_code == 1) ? true : false;
 						$cur_row['lastlogin'] = date('d/m/Y H:i', $row->lastlogin);
 						$cur_row['ipaddress'] = $row->ipaddress;
 						if (!empty($row->reason)){
