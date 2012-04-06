@@ -6,6 +6,10 @@
 	<meta http-equiv="expires" content="-1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php echo $this->CI->config->item('site_name'); ?> - Admin Panel</title>
+	<script type="text/javascript">
+		var site_url = '<?php echo $this->config->base_url().'administrator/'; ?>';
+		var sitename = '<?php echo $this->CI->config->item('site_name'); ?>';
+	</script>
 	<?php
 		$this->asset->stylesheet('administrator/main/layout');
 		$this->asset->javascript('administrator/main/jquery-1.5.2.min');
@@ -19,10 +23,6 @@
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<script type="text/javascript">
-		var site_url = <?php echo $this->config->base_url(); ?>;
-		var sitename = <?php echo $this->CI->config->item('site_name'); ?>;
-	</script>
 	<script type="text/javascript">
 		$(document).ready(function() { 
 			$(".tablesorter").tablesorter(); 
@@ -62,10 +62,10 @@
 		<?php echo $secondary_bar; ?>
 	</section><!-- end of secondary bar -->
 	
-	<aside id="sidebar" class="column">
+	<aside id="sidebar" class="column" style="height: 100%">
 		<hr />
 		<?php echo $sidebar; ?>
-		<footer style="height: 100%">
+		<footer>
 			<hr />
 			<p><strong>Copyright &copy; 2012 UNIX Team</strong></p>
 			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p>
