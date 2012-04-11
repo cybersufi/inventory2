@@ -92,7 +92,7 @@ Ext.define('App.SiteAdmin.MenuList', {
 	       	autoDestroy: true,
    		});
 	   	
-   		this.dockedItems = [{
+   		/*this.dockedItems = [{
     		xtype: 'toolbar',
     		items: [{
 	    		text: 'Add Group',
@@ -108,7 +108,7 @@ Ext.define('App.SiteAdmin.MenuList', {
 	    		text: 'Edit Group',
 	  			iconCls: 'edit',
 	    	}]
-    	}];
+    	}];*/
    	
 	   	this.bbar = Ext.create('Ext.PagingToolbar', {
         	store: this.store,

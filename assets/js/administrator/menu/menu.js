@@ -5,6 +5,7 @@ Ext.onReady(function(){
 		layout: 'border',
 		width: '100%',
 		height: 500,
+		border: false,
 		items:[{
 			region: 'center',
 			border: false,
