@@ -161,38 +161,6 @@ class aix extends os {
         $this->sys->setMemApplication($mems);
         $this->sys->setMemBuffer($mems);
         $this->sys->setMemCache($mems);
-
-        /*
-        if (CommonFunctions::rfts('/proc/meminfo', $bufr)) {
-            $bufe = preg_split("/\n/", $bufr, -1, PREG_SPLIT_NO_EMPTY);
-            foreach ($bufe as $buf) {
-                if (preg_match('/Mem:\s+(.*)$/', $buf, $ar_buf)) {
-                    $ar_buf = preg_split('/\s+/', $ar_buf[1], 6);
-                    $this->sys->setMemTotal($ar_buf[0]);
-                    $this->sys->setMemUsed($ar_buf[1]);
-                    $this->sys->setMemFree($ar_buf[2]);
-                    $this->sys->setMemApplication($ar_buf[3]);
-                    $this->sys->setMemBuffer($ar_buf[4]);
-                    $this->sys->setMemCache($ar_buf[5]);
-                }
-                // Get info on individual swap files
-                if (CommonFunctions::rfts('/proc/swaps', $swaps)) {
-                    $swapdevs = preg_split("/\n/", $swaps, -1, PREG_SPLIT_NO_EMPTY);
-                    for ($i = 1, $max = (sizeof($swapdevs) - 1); $i < $max; $i++) {
-                        $ar_buf = preg_split('/\s+/', $swapdevs[$i], 6);
-                        $dev = new DiskDevice();
-                        $dev->setMountPoint($ar_buf[0]);
-                        $dev->setName("SWAP");
-                        $dev->setFsType('swap');
-                        $dev->setTotal($ar_buf[2] * 1024);
-                        $dev->setUsed($ar_buf[3] * 1024);
-                        $dev->setFree($dev->getTotal() - $dev->getUsed());
-                        $this->sys->setSwapDevices($dev);
-                    }
-                }
-            }
-        }
-        */
     }
 
     /**

@@ -38,5 +38,28 @@ abstract class os implements ios {
         $this->build();
         return $this->sys;
     }
+	
+	/**
+     * load data from database and filled to system object
+     *
+     * @see ios::loadFromDatabase()
+     *
+     * @return void
+     */
+	public final function loadFromDatabase() {
+		$CI =& get_instance();
+		$CI->load->model('inventory/servermodel_new','servermodel');
+		$hostname = $this->sys->getHostname();
+		$res = $CI->servermodel->getServerByName($hostname);
+		if ($res != false) {
+			foreach ($$res as $row) {
+				$this->sys->setServerid($row->serverid);
+				$this->sys->setType($row->text);
+				$this->sys->setKernel($row->osversion);
+				$this->sys->setUptime($row->uptime);
+			}
+		
+		}
+	}
 }
 ?>

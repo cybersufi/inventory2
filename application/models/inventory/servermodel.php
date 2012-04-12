@@ -58,8 +58,6 @@ class ServerModel extends CI_Model {
 	    		} else if (count($arguments) == 2) {
 	          		if (strstr($arguments[1], "ServerDetail")) {
 	            		return $this->getServer3($arguments[0]);
-	          		} else if ($arguments[1] == servermodel::GET_BY_NAME) {
-	          			return $this->getServer4($arguments[0]);
 	          		} else {
 	            		return $this->getServer2($arguments[0], $arguments[1]);
 	          		}
@@ -67,6 +65,14 @@ class ServerModel extends CI_Model {
 	          		trigger_error("Method <strong>$name</strong> with argument ". implode (',', $arguments)."doesn't exist", E_USER_ERROR);
 	        	}
 	        	break;  
+	      	}
+			case 'getServerByName' : {
+	        	if (count($arguments) == 1) {
+	          		return $this->getServer4($arguments[0]);
+	        	} else {
+	          		trigger_error("Method <strong>$name</strong> with argument ". implode (',', $arguments)."doesn't exist", E_USER_ERROR);
+	        	}
+	        	break;
 	      	}
 	      	case 'addServer' : {
 	        	if (count($arguments) == 4) {
@@ -190,7 +196,7 @@ class ServerModel extends CI_Model {
 	private function getServer4($sname) {
     	$sl = $this->serverlist;
     	$param = array($sl.'.servername' => $sname);
-    	$sql = $this->db->select($sl.'.serverid')
+    	$sql = $this->db->select($sl.'.*')
            		->from($sl)
            		->where($param)
            		->limit(1,0)
