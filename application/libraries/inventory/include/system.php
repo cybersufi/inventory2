@@ -13,6 +13,7 @@ class system {
 	private $_osbit = "Unknown";
 	private $_serialnumber = "Unknown";
 	private $_model = "Unknown";
+	private $_
     private $_uptime = 0;
 	
 	private $_memory = array();
