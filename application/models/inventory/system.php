@@ -1,6 +1,6 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
-class system {
+class System extends CI_Model {
     	
     private $_serverid = "0";
     private $_hostname = "localhost";
@@ -27,7 +27,19 @@ class system {
     private $_nics = array();
     private $_fss = array();
     private $_swapDevices = array();
+	
+	private $list;
+  	private $type;
+  	private $nic;
+	private $mp;
     
+	function __construct() {
+    	parent::__construct();
+		$this->list = 'app_serverlist';
+    	$this->type = 'app_servertype';
+    	$this->nic = 'app_serverniclist';
+  	}
+	
     public static function removeDupsAndCount($arrDev) {
         $result = array();
         foreach ($arrDev as $dev) {
@@ -225,5 +237,25 @@ class system {
     public function setSwapDevices($swapDevices) {
         array_push($this->_swapDevices, $swapDevices);
     }
+	
+	public function loadById($serverid) {
+		$param = array($this->list.'.serverid' => $serverid);
+	}
+	
+	public function loadByName($servername) {
+		$filter = array($this->list.'.servername' => $servername);
+		$res = $this->load($filter)
+	}
+	
+	private function load($filter) {
+		$sql = $this->db->select($this->list.'.*')
+           		->from($this->list)
+				->join($this->type, $this->type.'.servertypeid = '.$this->list.'.servertype','left')
+           		->where($param)
+           		->limit(1,0)
+           		->get();
+    	return $var = ($sql->num_rows() > 0) ? $sql->result() : false;
+	}
+	
 }
 ?>

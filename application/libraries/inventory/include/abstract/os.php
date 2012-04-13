@@ -54,11 +54,22 @@ abstract class os implements ios {
 		if ($res != false) {
 			foreach ($$res as $row) {
 				$this->sys->setServerid($row->serverid);
+				$this->sys->setIp($row->defaultip);
 				$this->sys->setType($row->text);
-				$this->sys->setKernel($row->osversion);
+				$this->sys->setFunction($row->serverfunction);
+				$this->sys->setKernel($row->kernel);
+				$this->sys->setFirmware($row->firmwareversion);
+				$this->sys->setDistribution($row->distribution);
+				$this->sys->setSerial($row->serialnumber);
+				$this->sys->setModel($row->makemodel);
+				$this->sys->setOsbit($row->osbit);
+				$this->sys->setStatus($row->serverstatus);
 				$this->sys->setUptime($row->uptime);
+				
+				$this->sys->setZone($row->serverzone);
+				$this->sys->setLocation($row->location);
+				$this->sys->setRackInfo($row->rackinfo);
 			}
-		
 		}
 	}
 }
