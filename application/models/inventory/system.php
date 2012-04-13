@@ -239,12 +239,13 @@ class System extends CI_Model {
     }
 	
 	public function loadById($serverid) {
-		$param = array($this->list.'.serverid' => $serverid);
+		$filter = array($this->list.'.serverid' => $serverid);
+		$res = $this->load($filter);
 	}
 	
 	public function loadByName($servername) {
 		$filter = array($this->list.'.servername' => $servername);
-		$res = $this->load($filter)
+		$res = $this->load($filter);
 	}
 	
 	private function load($filter) {
