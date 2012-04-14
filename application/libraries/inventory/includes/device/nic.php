@@ -1,15 +1,24 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
 class nic implements idevice{
-    	
-    private $_name = "";
-    private $_macaddr = "";
-	private $_ipaddr = "";
-	private $_type = "";
-	private $_txBytes = 0;
-    private $_rxBytes = 0;
-    private $_errors = 0;
-    private $_drops = 0;
+    
+	private $nicid = "";	
+    private $name = "";
+    private $macaddr = "";
+	private $ipaddr = "";
+	private $type = "";
+	private $txBytes = 0;
+    private $rxBytes = 0;
+    private $errors = 0;
+    private $drops = 0;
+	
+	public function getId() {
+		return $this->nicid;
+	}
+	
+	public function setId($nicid) {
+		$this->nicid = $nicid;
+	}
 	
     public function getDrops() {
         return $this->_drops;

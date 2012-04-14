@@ -1,49 +1,48 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class ssh {
 	private $tipe = 'localhost'; //localhost | IP Address SSH
 	private $user;
 	private $pass;
 	
-	function ssh()
-	{
+	function __construct() {
 		if ( ! defined('SSHDIR')) {
 			define('SSHDIR',APPPATH.'/libraries/ssh/');
 		}
 	}
 
-	function setServer($srv,$user=false,$pass=false)
-	{
+	public function setServer($srv,$user=false,$pass=false) {
 		$this->tipe = $srv;
 		$this->user = $user;
 		$this->pass = $pass;	 	
 	}
-
-	function ex($cmd)
-	{
-		if($this->tipe == 'localhost')
-		{
-			exec($cmd, $output);
-			return $output;
-		}
-		else
-		{
-		    include_once(SSHDIR.'Net/SSH2.php');
-		    $ssh = new Net_SSH2($this->tipe);
-		    if (!$ssh->login($this->user, $this->pass)) 
-			{
-        		return 'Login Failed / Server Down / SSH Server Down';
-		    }
-			else
-			{
-			  	$output = $ssh->exec($cmd); 
-			    $ssh->disconnect();
-				return $output;
-			}
-		}
+	
+	public function setKey($key) {
+		include_once('Crypt/RSA.php');
+		$this->pass = new Crypt_RSA();
+		$this->pass->loadKey($this->decode5t($key));
+	}
+	
+	public function connect() {
+		include_once(SSHDIR.'Net/SSH2.php');
+	    $this->ssh = new Net_SSH2($this->tipe);
+	    if (!$this->ssh->login($this->user, $this->pass)) {
+    		return 'Login Failed / Server Down / SSH Server Down';
+	    } 
+		return true;
+	}
+	
+	public function disconnect() {
+		$this->ssh->disconnect();
+		return true;
 	}
 
-	function setflush()
-	{
+	public function ex($cmd) {
+		$output = $this->ssh->exec($cmd);
+		return $output;
+	}
+	
+	public function setflush() {
 		if (ob_get_length()){           
 		    @ob_flush();
 		    @flush();
@@ -51,5 +50,13 @@ class ssh {
 		}   
 		@ob_start();
 	}
+	
+	private function decode5t($str) {
+	  for($i=0; $i<5;$i++) {
+	    $str=base64_decode(strrev($str)); //apply base64 first and then reverse the string}
+	  }
+	  return $str;
+	}
 }
+
 ?>

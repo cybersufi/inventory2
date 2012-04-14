@@ -22,26 +22,5 @@ interface ios
      * @return System
      */
     function getSys();
-	
-	/**
-     * build the os information from database
-     *
-     * @return void
-     */
-    function loadFromDatabase();
-	
-	/**
-     * save the os information to database
-     *
-     * @return void
-     */
-    function saveToDatabase();
-	
-	/**
-     * build the os information from physical server
-     *
-     * @return void
-     */
-    function loadFromServer();
 }
 ?>

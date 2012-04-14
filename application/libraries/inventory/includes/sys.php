@@ -1,32 +1,32 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
-class system {
+class sys {
     	
-    private $_serverid = "0";
-    private $_hostname = "localhost";
-	private $_type = "unknown";
-    private $_ip = "127.0.0.1";
-    private $_kernel = "Unknown";
-    private $_distribution = "Unknown";
-	private $_firmware = "Unknown";
-	private $_function = "Unknown";
-	private $_osbit = "Unknown";
-	private $_serialnumber = "Unknown";
-	private $_model = "Unknown";
-	private $_status = "Unknown";
-    private $_uptime = 0;
+    private $serverid = "0";
+    private $hostname = "localhost";
+	private $type = "unknown";
+    private $ip = "127.0.0.1";
+    private $kernel = "Unknown";
+    private $distribution = "Unknown";
+	private $firmware = "Unknown";
+	private $function = "Unknown";
+	private $osbit = "Unknown";
+	private $serialnumber = "Unknown";
+	private $model = "Unknown";
+	private $status = "Unknown";
+    private $uptime = 0;
 	
-	private $_zone = "Unknown";
-	private $_location = "Unknown";
-	private $_rackinfo = "Unknown";
-	private $_owner = "Unknown";
+	private $zone = "Unknown";
+	private $location = "Unknown";
+	private $rackinfo = "Unknown";
+	private $owner = "Unknown";
 	
 	
-	private $_memory = array();
-    private $_cpus = array();
-    private $_nics = array();
-    private $_fss = array();
-    private $_swapDevices = array();
+	private $memory = array();
+    private $cpus = array();
+    private $nics = array();
+    private $fss = array();
+    private $swapDevices = array();
     
     public static function removeDupsAndCount($arrDev) {
         $result = array();
@@ -51,55 +51,55 @@ class system {
     }
     
     public function getServerid() {
-        return $this->_serverid;
+        return $this->serverid;
     }
 	
     public function setServerid($serverid) {
-        $this->_serverid = $serverid;
+        $this->serverid = $serverid;
     }
 	
     public function getHostname() {
-        return $this->_hostname;
+        return $this->hostname;
     }
     
     public function setHostname($hostname) {
-        $this->_hostname = $hostname;
+        $this->hostname = $hostname;
     }
     
     public function getType() {
-        return $this->_type;
+        return $this->type;
     }
     
     public function setType($type) {
-        $this->_type = $type;
+        $this->type = $type;
     }
     
     public function getIp() {
-        return $this->_ip;
+        return $this->ip;
     }
     
     public function setIp($ip) {
-        $this->_ip = $ip;
+        $this->ip = $ip;
     }
     
     public function getKernel() {
-        return $this->_kernel;
+        return $this->kernel;
     }
     
     public function setKernel($kernel) {
-        $this->_kernel = $kernel;
+        $this->kernel = $kernel;
     }
     
     public function getDistribution() {
-        return $this->_distribution;
+        return $this->distribution;
     }
     
     public function setDistribution($distribution) {
-        $this->_distribution = $distribution;
+        $this->distribution = $distribution;
     }
 	
 	public function getFirmware() {
-		return $this->_firmware;
+		return $this->firmware;
 	}
 	
 	public function setFirmware($firmware) {
@@ -107,123 +107,135 @@ class system {
 	}
 	
 	public function getFunction() {
-		return $this->_function;
+		return $this->function;
 	}
 	
 	public function setFunction($function) {
-		$this->_function = $function;
+		$this->function = $function;
 	}
 	
 	public function getOsbit() {
-		return $this->_osbit;
+		return $this->osbit;
 	}
 	
 	public function setOsbit($bit) {
-		$this->_osbit = $bit;
+		$this->osbit = $bit;
 	}
 	
 	public function getSerial() {
-		return $this->_serialnumber;
+		return $this->serialnumber;
 	}
 	
 	public function setSerial($serial) {
-		$this->_serialnumber = $serial;
+		$this->serialnumber = $serial;
 	}
 	
 	public function getModel() {
-		return $this->_model;
+		return $this->model;
 	}
 	
 	public function setModel($model) {
-		$this->_model = $model;
+		$this->model = $model;
 	}
 	
 	public function getStatus() {
-		return $this->_status;
+		return $this->status;
 	}
 	
 	public function setStatus($status) {
-		$this->_status = $status;
+		$this->status = $status;
 	}
 	
 	public function getUptime() {
-        return $this->_uptime;
+        return $this->uptime;
     }
     
     public function setUptime($uptime) {
-        $this->_uptime = $uptime;
+        $this->uptime = $uptime;
     }
     
 	public function getZone() {
-		return $this->_zone;
+		return $this->zone;
 	}
 	
 	public function setZone($zone) {
-		$this->_zone = $zone;
+		$this->zone = $zone;
 	}
 	
 	public function getLocation() {
-		return $this->_location;
+		return $this->location;
 	}
 	
 	public function setLocation($location) {
-		$this->_location = $location;
+		$this->location = $location;
 	}
 	
 	public function getRackInfo() {
-		return $this->_rackinfo;
+		return $this->rackinfo;
 	}
 	
 	public function setRackInfo($rackInfo) {
-		$this->_rackinfo = $rackInfo;
+		$this->rackinfo = $rackInfo;
 	}
 	
 	public function getOwner() {
-		return $this->_owner;
+		return $this->owner;
 	}
 	
 	public function setOwner($owner) {
-		$this->_owner = $owner;
+		$this->owner = $owner;
 	}
 	
 	public function getMemory() {
-		return $this->_memory;
+		return $this->memory;
 	}
 	
 	public function setMemory($memory) {
-		$this->_memory = $memory;
+		$this->memory = $memory;
 	}
 	
     public function getCpus() {
-        return $this->_cpus;
+        return $this->cpus;
     }
     
     public function setCpus($cpus) {
-        array_push($this->_cpus, $cpus);
+        array_push($this->cpus, $cpus);
     }
     
     public function getNics() {
-        return $this->_nics;
+        return $this->nics;
     }
     
     public function setNics($nics) {
-        array_push($this->_nics, $nics);
+        array_push($this->nics, $nics);
     }
     
     public function getFilesystems() {
-        return $this->_fss;
+        return $this->fss;
     }
     
     public function setFilesystems($fs) {
-        array_push($this->_fss, $fs);
+        array_push($this->fss, $fs);
     }
 
     public function getSwapDevices() {
-        return $this->_swapDevices;
+        return $this->swapDevices;
     }
     
     public function setSwapDevices($swapDevices) {
-        array_push($this->_swapDevices, $swapDevices);
+        array_push($this->swapDevices, $swapDevices);
     }
+	
+	public function toArray(){
+	    $array = get_object_vars($this);
+	    unset($array['_parent'], $array['_index']);
+	    array_walk_recursive($array, function(&$property, $key){
+	        if(is_object($property)
+	        && method_exists($property, 'toArray')){
+	            $property = $property->toArray();
+	        }
+	    });
+    	return $array;
+	}
 }
 ?>
