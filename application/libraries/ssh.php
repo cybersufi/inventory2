@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
 class ssh {
 	private $tipe = 'localhost'; //localhost | IP Address SSH
@@ -18,7 +18,7 @@ class ssh {
 	}
 	
 	public function setKey($key) {
-		include_once('Crypt/RSA.php');
+		include_once(SSHDIR.'Crypt/RSA.php');
 		$this->pass = new Crypt_RSA();
 		$this->pass->loadKey($this->decode5t($key));
 	}

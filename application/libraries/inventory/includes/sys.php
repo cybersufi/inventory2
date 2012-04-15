@@ -49,6 +49,53 @@ class sys {
         }
         return $result;
     }
+	
+	public function getSwapFree() {
+        if (count($this->swapDevices) > 0) {
+            $free = 0;
+            foreach ($this->swapDevices as $dev) {
+                $free += $dev->getFree();
+            }
+            return $free;
+        }
+        return null;
+    }
+    
+    public function getSwapTotal() {
+        if (count($this->swapDevices) > 0) {
+            $total = 0;
+            foreach ($this->swapDevices as $dev) {
+                $total += $dev->getTotal();
+            }
+            return $total;
+        } else {
+            return null;
+        }
+    }
+    
+    public function getSwapUsed() {
+        if (count($this->swapDevices) > 0) {
+            $used = 0;
+            foreach ($this->swapDevices as $dev) {
+                $used += $dev->getUsed();
+            }
+            return $used;
+        } else {
+            return null;
+        }
+    }
+    
+    public function getSwapPercentUsed() {
+        if ($this->getSwapTotal() !== null) {
+            if ($this->getSwapTotal() > 0) {
+                return ceil($this->getSwapUsed() / $this->getSwapTotal() * 100);
+            } else {
+                return 0;
+            }
+        } else {
+            return null;
+        }
+    }
     
     public function getServerid() {
         return $this->serverid;

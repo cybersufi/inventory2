@@ -5,7 +5,7 @@ interface iparser {
     function getHostname();
 	function getKernel();
 	function getSystemModel();
-	function getTotalMemory();
+	function getMemory();
 	function getFirmware();
 	function getSerial();
 	function getOsBit();

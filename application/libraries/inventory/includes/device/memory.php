@@ -2,64 +2,64 @@
 
 class memory {
 	
-	private $_memFree = 0;
-    private $_memTotal = 0;
-    private $_memUsed = 0;
-    private $_memBuffer = null;
-    private $_memCache = null;
+	private $memFree = 0;
+    private $memTotal = 0;
+    private $memUsed = 0;
+    private $memBuffer = null;
+    private $memCache = null;
 	
 	public function getMemFree() {
-		return $this->_memFree;
+		return $this->memFree;
 	}
 	
 	public function setMemFree($memFree) {
-		$this->_memFree = $memFree;
+		$this->memFree = $memFree;
 	}
 	
 	public function getMemUsed() {
-		return $this->_memUsed;
+		return $this->memUsed;
 	}
 	
 	public function setMemUsed($memUsed) {
-		$this->_memUsed = $memUsed;
+		$this->memUsed = $memUsed;
 	}
 	
 	public function getMemTotal() {
-		return $this->_memTotal;
+		return $this->memTotal;
 	}
 	
 	public function setMemTotal($memTotal) {
-		$this->_memTotal = $memTotal;
+		$this->memTotal = $memTotal;
 	}
 	
 	public function getMemBuffer() {
-		return $this->_memBuffer;
+		return $this->memBuffer;
 	}
 	
 	public function setMemBuffer($memBuffer) {
-		$this->_memBuffer = $memBuffer;
+		$this->memBuffer = $memBuffer;
 	}
 	
 	public function getMemCache() {
-		return $this->_memCache;
+		return $this->memCache;
 	}
 	
 	public function setMemCache($memCache) {
-		$this->_memCache = $memCache;
+		$this->memCache = $memCache;
 	}
 	
 	public function getMemPercentUsed() {
-        if ($this->_memTotal > 0) {
-            return ceil($this->_memUsed / $this->_memTotal * 100);
+        if ($this->memTotal > 0) {
+            return ceil($this->memUsed / $this->memTotal * 100);
         } else {
             return 0;
         }
     }
     
     public function getMemPercentCache() {
-        if ($this->_memCache !== null) {
-            if ($this->_memCache > 0) {
-                return ceil($this->_memCache / $this->_memTotal * 100);
+        if ($this->memCache !== null) {
+            if ($this->memCache > 0) {
+                return ceil($this->memCache / $this->memTotal * 100);
             } else {
                 return 0;
             }
@@ -69,9 +69,9 @@ class memory {
     }
     
     public function getMemPercentBuffer() {
-        if ($this->_memBuffer !== null) {
-            if ($this->_memBuffer > 0) {
-                return ceil($this->_memBuffer / $this->_memTotal * 100);
+        if ($this->memBuffer !== null) {
+            if ($this->memBuffer > 0) {
+                return ceil($this->memBuffer / $this->memTotal * 100);
             } else {
                 return 0;
             }
@@ -79,6 +79,18 @@ class memory {
             return null;
         }
     }
+	
+	public final function toArray() {
+		$array = get_object_vars($this);
+	    unset($array['_parent'], $array['_index']);
+	    array_walk_recursive($array, function(&$property, $key){
+	        if(is_object($property)
+	        && method_exists($property, 'toArray')){
+	            $property = $property->toArray();
+	        }
+	    });
+    	return $array;
+	}
 	
 }
 

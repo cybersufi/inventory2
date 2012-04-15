@@ -1,6 +1,6 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
-class nic implements idevice{
+class nic {
     
 	private $nicid = "";	
     private $name = "";
@@ -21,75 +21,79 @@ class nic implements idevice{
 	}
 	
     public function getDrops() {
-        return $this->_drops;
+        return $this->drops;
     }
     
     public function setDrops($drops) {
-        $this->_drops = $drops;
+        $this->drops = $drops;
     }
     
     public function getErrors() {
-        return $this->_errors;
+        return $this->errors;
     }
     
     public function setErrors($errors) {
-        $this->_errors = $errors;
+        $this->errors = $errors;
     }
     
     public function getName() {
-        return $this->_name;
+        return $this->name;
     }
     
     public function setName($name) {
-        $this->_name = $name;
+        $this->name = $name;
     }
     
 	public function getMAC() {
-        return $this->_macaddr;
+        return $this->macaddr;
     }
     
     public function setMAC($mac) {
-        $this->_macaddr = $mac;
+        $this->macaddr = $mac;
     }
 	
 	public function getIpAddress() {
-        return $this->_ipaddr;
+        return $this->ipaddr;
     }
     
     public function setIpAddress($ipaddr) {
-        $this->_ipaddr = $ipaddr;
+        $this->ipaddr = $ipaddr;
     }
 	
 	public function getType() {
-        return $this->_type;
+        return $this->type;
     }
     
     public function setType($type) {
-        $this->_type = $type;
+        $this->type = $type;
     }
 	
     public function getRxBytes() {
-        return $this->_rxBytes;
+        return $this->rxBytes;
     }
     
     public function setRxBytes($rxBytes) {
-        $this->_rxBytes = $rxBytes;
+        $this->rxBytes = $rxBytes;
     }
     
     public function getTxBytes() {
-        return $this->_txBytes;
+        return $this->txBytes;
     }
     
     public function setTxBytes($txBytes) {
-        $this->_txBytes = $txBytes;
+        $this->txBytes = $txBytes;
     }
 	
-	public function loadFromDatabase() {
-		return null;
-	}
-	
-	public function saveToDatabase() {
-		return null;
+	public final function toArray() {
+		$array = get_object_vars($this);
+	    unset($array['_parent'], $array['_index']);
+	    array_walk_recursive($array, function(&$property, $key){
+	        if(is_object($property)
+	        && method_exists($property, 'toArray')){
+	            $property = $property->toArray();
+	        }
+	    });
+    	return $array;
 	}
 }
 ?>

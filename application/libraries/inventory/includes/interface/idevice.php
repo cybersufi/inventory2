@@ -15,5 +15,7 @@ interface idevice {
      * @return void
      */
     function saveToDatabase();
+	
+	function toArray();
 }
 ?>

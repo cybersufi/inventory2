@@ -6,69 +6,69 @@ class filesystem {
      *
      * @var String
      */
-    private $_name = "";
+    private $name = "";
     
     /**
      * type of the filesystem on the disk device
      *
      * @var String
      */
-    private $_fsType = "";
+    private $fsType = "";
     
     /**
      * diskspace that is free in bytes
      *
      * @var Integer
      */
-    private $_free = 0;
+    private $free = 0;
     
     /**
      * diskspace that is used in bytes
      *
      * @var Integer
      */
-    private $_used = 0;
+    private $used = 0;
     
     /**
      * total diskspace
      *
      * @var Integer
      */
-    private $_total = 0;
+    private $total = 0;
     
     /**
      * mount point of the disk device if available
      *
      * @var String
      */
-    private $_mountPoint = null;
+    private $mountPoint = null;
     
     /**
      * additional options of the device, like mount options
      *
      * @var String
      */
-    private $_options = null;
+    private $options = null;
     
     /**
      * inodes usage in percent if available
      *
      * @var
      */
-    private $_percentInodesUsed = null;
+    private $percentInodesUsed = null;
     
     /**
      * Returns PercentUsed calculated when function is called from internal values
      *
-     * @see DiskDevice::$_total
-     * @see DiskDevice::$_used
+     * @see DiskDevice::$total
+     * @see DiskDevice::$used
      *
      * @return Integer
      */
     public function getPercentUsed()
     {
-        if ($this->_total > 0) {
-            return ceil($this->_used / $this->_total * 100);
+        if ($this->total > 0) {
+            return ceil($this->used / $this->total * 100);
         } else {
             return 0;
         }
@@ -76,211 +76,223 @@ class filesystem {
 
     
     /**
-     * Returns $_PercentInodesUsed.
+     * Returns $PercentInodesUsed.
      *
-     * @see DiskDevice::$_PercentInodesUsed
+     * @see DiskDevice::$PercentInodesUsed
      *
      * @return Integer
      */
     public function getPercentInodesUsed()
     {
-        return $this->_percentInodesUsed;
+        return $this->percentInodesUsed;
     }
     
     /**
-     * Sets $_PercentInodesUsed.
+     * Sets $PercentInodesUsed.
      *
      * @param Integer $percentInodesUsed inodes percent
      *
-     * @see DiskDevice::$_PercentInodesUsed
+     * @see DiskDevice::$PercentInodesUsed
      *
      * @return Void
      */
     public function setPercentInodesUsed($percentInodesUsed)
     {
-        $this->_percentInodesUsed = $percentInodesUsed;
+        $this->percentInodesUsed = $percentInodesUsed;
     }
     
     /**
-     * Returns $_free.
+     * Returns $free.
      *
-     * @see DiskDevice::$_free
+     * @see DiskDevice::$free
      *
      * @return Integer
      */
     public function getFree()
     {
-        return $this->_free;
+        return $this->free;
     }
     
     /**
-     * Sets $_free.
+     * Sets $free.
      *
      * @param Integer $free free bytes
      *
-     * @see DiskDevice::$_free
+     * @see DiskDevice::$free
      *
      * @return Void
      */
     public function setFree($free)
     {
-        $this->_free = $free;
+        $this->free = $free;
     }
     
     /**
-     * Returns $_fsType.
+     * Returns $fsType.
      *
-     * @see DiskDevice::$_fsType
+     * @see DiskDevice::$fsType
      *
      * @return String
      */
     public function getFsType()
     {
-        return $this->_fsType;
+        return $this->fsType;
     }
     
     /**
-     * Sets $_fsType.
+     * Sets $fsType.
      *
      * @param String $fsType filesystemtype
      *
-     * @see DiskDevice::$_fsType
+     * @see DiskDevice::$fsType
      *
      * @return Void
      */
     public function setFsType($fsType)
     {
-        $this->_fsType = $fsType;
+        $this->fsType = $fsType;
     }
     
     /**
-     * Returns $_mountPoint.
+     * Returns $mountPoint.
      *
-     * @see DiskDevice::$_mountPoint
+     * @see DiskDevice::$mountPoint
      *
      * @return String
      */
     public function getMountPoint()
     {
-        return $this->_mountPoint;
+        return $this->mountPoint;
     }
     
     /**
-     * Sets $_mountPoint.
+     * Sets $mountPoint.
      *
      * @param String $mountPoint mountpoint
      *
-     * @see DiskDevice::$_mountPoint
+     * @see DiskDevice::$mountPoint
      *
      * @return Void
      */
     public function setMountPoint($mountPoint)
     {
-        $this->_mountPoint = $mountPoint;
+        $this->mountPoint = $mountPoint;
     }
     
     /**
-     * Returns $_name.
+     * Returns $name.
      *
-     * @see DiskDevice::$_name
+     * @see DiskDevice::$name
      *
      * @return String
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
     
     /**
-     * Sets $_name.
+     * Sets $name.
      *
      * @param String $name device name
      *
-     * @see DiskDevice::$_name
+     * @see DiskDevice::$name
      *
      * @return Void
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
     }
     
     /**
-     * Returns $_options.
+     * Returns $options.
      *
-     * @see DiskDevice::$_options
+     * @see DiskDevice::$options
      *
      * @return String
      */
     public function getOptions()
     {
-        return $this->_options;
+        return $this->options;
     }
     
     /**
-     * Sets $_options.
+     * Sets $options.
      *
      * @param String $options additional options
      *
-     * @see DiskDevice::$_options
+     * @see DiskDevice::$options
      *
      * @return Void
      */
     public function setOptions($options)
     {
-        $this->_options = $options;
+        $this->options = $options;
     }
     
     /**
-     * Returns $_total.
+     * Returns $total.
      *
-     * @see DiskDevice::$_total
+     * @see DiskDevice::$total
      *
      * @return Integer
      */
     public function getTotal()
     {
-        return $this->_total;
+        return $this->total;
     }
     
     /**
-     * Sets $_total.
+     * Sets $total.
      *
      * @param Integer $total total bytes
      *
-     * @see DiskDevice::$_total
+     * @see DiskDevice::$total
      *
      * @return Void
      */
     public function setTotal($total)
     {
-        $this->_total = $total;
+        $this->total = $total;
     }
     
     /**
-     * Returns $_used.
+     * Returns $used.
      *
-     * @see DiskDevice::$_used
+     * @see DiskDevice::$used
      *
      * @return Integer
      */
     public function getUsed()
     {
-        return $this->_used;
+        return $this->used;
     }
     
     /**
-     * Sets $_used.
+     * Sets $used.
      *
      * @param Integer $used used bytes
      *
-     * @see DiskDevice::$_used
+     * @see DiskDevice::$used
      *
      * @return Void
      */
     public function setUsed($used)
     {
-        $this->_used = $used;
+        $this->used = $used;
     }
+	
+	public final function toArray() {
+		$array = get_object_vars($this);
+	    unset($array['_parent'], $array['_index']);
+	    array_walk_recursive($array, function(&$property, $key){
+	        if(is_object($property)
+	        && method_exists($property, 'toArray')){
+	            $property = $property->toArray();
+	        }
+	    });
+    	return $array;
+	}
 }
 ?>

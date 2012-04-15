@@ -37,6 +37,17 @@ class Inventory {
 		}
 	}
 	
+	public function createParser($deviceType) {
+		$deviceType = strtolower($deviceType);
+		switch ($deviceType) {
+			case 'aix' :
+				return new aix();
+			break;
+			default:
+				return false;
+		}
+	}
+	
 }
 
 
