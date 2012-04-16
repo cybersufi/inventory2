@@ -4,6 +4,7 @@ class ssh {
 	private $tipe = 'localhost'; //localhost | IP Address SSH
 	private $user;
 	private $pass;
+	private $ssh;
 	
 	function __construct() {
 		if ( ! defined('SSHDIR')) {
