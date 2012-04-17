@@ -10,6 +10,7 @@ class OsModel extends CI_Model {
 	private $nic;
 	
 	function __construct() {
+		parent::__construct();
 		$this->CI =& get_instance();
 		$this->inventory = $this->CI->load->library('inventory');
 		$this->nic = 'app_niclist';

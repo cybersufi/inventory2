@@ -36,6 +36,22 @@ class parserhelper {
 		return $res;
 	}
 	
+	public static function bdf($dfresult) {
+		$res = array();
+		$df = explode("\n", $dfresult);
+		foreach ($df as $df_line) {
+			$df_buf1 = preg_split("/(\%\s)/", $df_line, 2);
+			if (count($df_buf1) == 1 ) {
+			    continue;
+			}
+			if (preg_match("/(.*)(\s+)(([0-9]+)(\s+)([0-9]+)(\s+)([0-9]+)(\s+)([0-9]+)$)/", $df_buf1[0], $df_buf2)) {
+				$df_buf = array($df_buf2[1], $df_buf2[4], $df_buf2[6], $df_buf2[8], $df_buf2[10], $df_buf1[1]);
+				array_push($res, $df_buf);
+			}
+		}
+		return $res;
+	}
+	
 	public static function getUptime($uptime) {
 		$uptime = str_replace(',','',$uptime);
 		$uptime = preg_replace('~\s{2,}~', ' ', $uptime);

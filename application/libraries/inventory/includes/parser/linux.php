@@ -2,6 +2,11 @@
 
 class linux extends parser {
 	
+	function __construct() {
+		parent::__construct();
+		$this->sys->setType('linux');
+	}
+	
 	public function getHostname() {
 		$str = "hostname";
 		$rst = $this->ssh->ex($str);
@@ -230,7 +235,7 @@ class linux extends parser {
 		return $this->sys->getNics();
 	}
 
-	function getDist() {
+	function getDistribution() {
 		$list = @parse_ini_file(APPPATH.'/libraries/inventory/data.ini', true);
 		$str = 'lsb_release -a 2> /dev/null';
 		$res = $this->ssh->ex($str);
@@ -282,7 +287,7 @@ class linux extends parser {
 		$this->getSerial();
 		$this->getOsBit();
 		$this->getUptime();
-		$this->getDist();
+		$this->getDistribution();
 		$this->getFilesystem();
 		$this->getSwapdevice();
 		$this->getNic();

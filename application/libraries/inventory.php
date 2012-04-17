@@ -46,6 +46,9 @@ class Inventory {
 			case 'linux' :
 				return new linux();
 			break;
+			case 'hpux' :
+				return new hpux();
+			break;
 			default:
 				return false;
 		}
