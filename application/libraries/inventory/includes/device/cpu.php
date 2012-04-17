@@ -1,252 +1,107 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
 class cpu {
-    /**
-     * model of the cpu
-     *
-     * @var String
-     */
-    private $_model = "";
+    	
+    private $model = "";
     
-    /**
-     * speed of the cpu in hertz
-     *
-     * @var Integer
-     */
-    private $_cpuSpeed = 0;
+    private $cpuSpeed = 0;
     
-    /**
-     * cache size in bytes, if available
-     *
-     * @var Integer
-     */
-    private $_cache = null;
+    private $cache = null;
 
-    /**
-     * virtualization, if available
-     *
-     * @var String
-     */
-    private $_virt = null;    
+    private $virt = null;    
     
-    /**
-     * busspeed in hertz, if available
-     *
-     * @var Integer
-     */
-    private $_busSpeed = null;
+    private $busSpeed = null;
     
-    /**
-     * temperature of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_temp = null;
+    private $temp = null;
     
-    /**
-     * bogomips of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_bogomips = null;
+    private $bogomips = null;
     
-    /**
-     * current load in percent of the cpu, if available
-     *
-     * @var Integer
-     */
-    private $_load = null;
+    private $load = null;
+	
+	private $cpucore = 0;
     
-    /**
-     * Returns $_bogomips.
-     *
-     * @see Cpu::$_bogomips
-     *
-     * @return Integer
-     */
     public function getBogomips() {
-        return $this->_bogomips;
+        return $this->bogomips;
     }
     
-    /**
-     * Sets $_bogomips.
-     *
-     * @param Integer $bogomips bogompis
-     *
-     * @see Cpu::$_bogomips
-     *
-     * @return Void
-     */
     public function setBogomips($bogomips) {
-        $this->_bogomips = $bogomips;
+        $this->bogomips = $bogomips;
     }
     
-    /**
-     * Returns $_busSpeed.
-     *
-     * @see Cpu::$_busSpeed
-     *
-     * @return Integer
-     */
     public function getBusSpeed() {
-        return $this->_busSpeed;
+        return $this->busSpeed;
     }
     
-    /**
-     * Sets $_busSpeed.
-     *
-     * @param Integer $busSpeed busspeed
-     *
-     * @see Cpu::$_busSpeed
-     *
-     * @return Void
-     */
     public function setBusSpeed($busSpeed) {
-        $this->_busSpeed = $busSpeed;
+        $this->busSpeed = $busSpeed;
     }
     
-    /**
-     * Returns $_cache.
-     *
-     * @see Cpu::$_cache
-     *
-     * @return Integer
-     */
     public function getCache() {
-        return $this->_cache;
+        return $this->cache;
     }
     
-    /**
-     * Sets $_cache.
-     *
-     * @param Integer $cache cache size
-     *
-     * @see Cpu::$_cache
-     *
-     * @return Void
-     */
     public function setCache($cache) {
-        $this->_cache = $cache;
+        $this->cache = $cache;
     }
     
-    /**
-     * Returns $_virt.
-     *
-     * @see Cpu::$_virt
-     *
-     * @return String
-     */
     public function getVirt() {
-        return $this->_virt;
+        return $this->virt;
     }
     
-    /**
-     * Sets $_virt.
-     *
-     * @param String $_virt
-     *
-     * @see Cpu::$_virt
-     *
-     * @return Void
-     */
     public function setVirt($virt) {
-        $this->_virt = $virt;
+        $this->virt = $virt;
     }    
     
-    /**
-     * Returns $_cpuSpeed.
-     *
-     * @see Cpu::$_cpuSpeed
-     *
-     * @return Integer
-     */
     public function getCpuSpeed() {
-        return $this->_cpuSpeed;
+        return $this->cpuSpeed;
     }
     
-    /**
-     * Sets $_cpuSpeed.
-     *
-     * @param Integer $cpuSpeed cpuspeed
-     *
-     * @see Cpu::$_cpuSpeed
-     *
-     * @return Void
-     */
     public function setCpuSpeed($cpuSpeed) {
-        $this->_cpuSpeed = $cpuSpeed;
+        $this->cpuSpeed = $cpuSpeed;
     }
     
-    /**
-     * Returns $_model.
-     *
-     * @see Cpu::$_model
-     *
-     * @return String
-     */
     public function getModel() {
-        return $this->_model;
+        return $this->model;
     }
     
-    /**
-     * Sets $_model.
-     *
-     * @param String $model cpumodel
-     *
-     * @see Cpu::$_model
-     *
-     * @return Void
-     */
     public function setModel($model) {
-        $this->_model = $model;
+        $this->model = $model;
     }
     
-    /**
-     * Returns $_temp.
-     *
-     * @see Cpu::$_temp
-     *
-     * @return Integer
-     */
     public function getTemp() {
-        return $this->_temp;
+        return $this->temp;
     }
     
-    /**
-     * Sets $_temp.
-     *
-     * @param Integer $temp temperature
-     *
-     * @see Cpu::$_temp
-     *
-     * @return Void
-     */
     public function setTemp($temp) {
-        $this->_temp = $temp;
+        $this->temp = $temp;
     }
     
-    /**
-     * Returns $_load.
-     *
-     * @see CpuDevice::$_load
-     *
-     * @return Integer
-     */
     public function getLoad() {
-        return $this->_load;
+        return $this->load;
     }
     
-    /**
-     * Sets $_load.
-     *
-     * @param Integer $load load percent
-     *
-     * @see CpuDevice::$_load
-     *
-     * @return Void
-     */
     public function setLoad($load) {
-        $this->_load = $load;
+        $this->load = $load;
     }
+	
+	public function getCpuCores() {
+		return $this->cpucore;
+	}
+	
+	public function setCpuCores($cores) {
+		$this->cpucore = $cores;
+	}
+	
+	public final function toArray() {
+		$array = get_object_vars($this);
+	    unset($array['_parent'], $array['_index']);
+	    array_walk_recursive($array, function(&$property, $key){
+	        if(is_object($property)
+	        && method_exists($property, 'toArray')){
+	            $property = $property->toArray();
+	        }
+	    });
+    	return $array;
+	}
 }
 ?>

@@ -164,25 +164,27 @@ class aix extends parser {
 		foreach ($res as $line) {
 			$text = preg_replace("/(\s\s+|\t|\n)/", " ", trim($line));
 			$tmp = explode(" ", $text);
-			if (is_numeric($tmp[1])) {
-				if (strstr($tmp[2], "link#")) {
-				  $mac = $tmp[3];
-				} else {
-					if (!strstr($tmp[0], "lo")){
-						$nic = new nic();
-						$nic->setIpAddress($tmp[3]);
-						$nic->setMAC($mac);
-						$nic->setName($tmp[0]);
-						$nic->setRxBytes($tmp[5]);
-						$nic->setTxBytes($tmp[7]);
-						$nic->setErrors($tmp[6] + $tmp[8]);
-						$this->sys->setNics($nic);
+			if (count($tmp) > 1) {
+				if (is_numeric($tmp[1])) {
+					if (strstr($tmp[2], "link#")) {
+					  $mac = $tmp[3];
+					} else {
+						if (!strstr($tmp[0], "lo")){
+							$nic = new nic();
+							$nic->setIpAddress($tmp[3]);
+							$nic->setMAC($mac);
+							$nic->setName($tmp[0]);
+							$nic->setRxBytes($tmp[5]);
+							$nic->setTxBytes($tmp[7]);
+							$nic->setErrors($tmp[6] + $tmp[8]);
+							$this->sys->setNics($nic);
+						}
 					}
 				}
 			}
 		}
 		
-		return null;
+		return $this->sys->getNics();
 	}
 	
 	function run() {

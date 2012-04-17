@@ -43,6 +43,9 @@ class Inventory {
 			case 'aix' :
 				return new aix();
 			break;
+			case 'linux' :
+				return new linux();
+			break;
 			default:
 				return false;
 		}
