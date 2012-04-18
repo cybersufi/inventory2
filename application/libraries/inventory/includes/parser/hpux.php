@@ -95,26 +95,21 @@ class hpux extends parser {
 	}
 	
 	function getMemory() {
-		/*$mem = new memory();
+		$str = 'swapinfo | grep memory';
+		$res = $this->ssh->ex($str);
+		
+		$text = preg_replace("/(\s\s+|\t|\n)/", " ", trim($res));
+		$tmp = explode(" ", $text);
+		if (count($tmp) > 1) {
+			$mem = new memory();
+			$mem->setMemTotal($tmp[1]);
+			$mem->setMemUsed($tmp[2]);
+			$mem->setMemFree($tmp[2]);
 			
-		$str = 'cat '.$this->configFile.' | grep \'Good Memory Size\'';
-		$res = $this->ssh->ex($str);
-		$res = explode(":", $res);
-		$res1 = explode(" ", $res[1]);
-		$tm = trim($res1[1]);
-		$mem->setMemTotal($tm);
+			$this->sys->setMemory($mem);
+		}
 		
-		$str = 'svmon -G | head -2|tail -1| awk {\'print $3\'}';
-		$res = $this->ssh->ex($str);
-		$um = intval(intval($res) / 256);
-		$mem->setMemUsed($um);
-		
-		$fm = $tm - $um;
-		$mem->setMemFree($fm);
-		
-		$this->sys->setMemory($mem);
-		return $this->sys->getMemory();*/
-		return null;
+		return $this->sys->getMemory();
 	}
 
 	function getFirmware() {
@@ -186,28 +181,18 @@ class hpux extends parser {
 	}
 	
 	function getSwapdevice() {
-		$str = 'swap -l | grep -v "device"';
+		$str = 'swapinfo | grep dev';
 		$res = $this->ssh->ex($str);
 		$res = explode("\n", $res);
 		foreach ($res as $line) {
 			$text = preg_replace("/(\s\s+|\t|\n)/", " ", trim($line));
 			$tmp = explode(" ", $text);
 			if (count($tmp) > 1) {
-				$tl = strlen($tmp[3]);
-				$st = substr($tmp[3], -2);
-				$ts = substr($tmp[3], 0, ($tl-2));
-				$ts = parserhelper::toKilo($ts, $st);
-				
-				$tl = strlen($tmp[4]);
-				$st = substr($tmp[4], -2);
-				$fs = substr($tmp[4], 0, ($tl-2));
-				$fs = parserhelper::toKilo($fs, $st);
-				
 				$sw = new filesystem();
-				$sw->setName($tmp[0]);
-				$sw->setTotal($ts);
-				$sw->setFree($fs);
-				$sw->setUsed(($ts - $fs));
+				$sw->setName($tmp[8]);
+				$sw->setTotal($tmp[1]);
+				$sw->setFree($tmp[3]);
+				$sw->setUsed($tmp[2]);
 				
 				$this->sys->setSwapDevices($sw);
 			}
@@ -216,33 +201,38 @@ class hpux extends parser {
 	}
 	
 	function getNic() {
-		$str = 'netstat -in';
+		$str = 'lanscan | tail -n +3';
 		$res = $this->ssh->ex($str);
-		$res = explode("\n", $res);
+		$nic = preg_split("/\n/", $res, -1, PREG_SPLIT_NO_EMPTY);
+		$macs = array();
+		foreach ($nic as $line) {
+			$text = preg_replace("/(\s\s+|\t|\n)/", " ", trim($line));
+			$text = explode(' ', $text);
+			$mac = explode('x', $text[1]);
+			$macs[$text[4]] = $mac[1];
+		}
 		
-		$state = false;
-    	$temp = null;
-    	$mac = null;
+		$str = 'netstat -in | tail -n +2';
+		$res = $this->ssh->ex($str);
+		$res = preg_split("/\n/", $res, -1, PREG_SPLIT_NO_EMPTY);
+		
 		foreach ($res as $line) {
 			$text = preg_replace("/(\s\s+|\t|\n)/", " ", trim($line));
-			$tmp = explode(" ", $text);
-			if (count($tmp) > 1) {
-				if (is_numeric($tmp[1])) {
-					if (strstr($tmp[2], "link#")) {
-					  $mac = $tmp[3];
-					} else {
-						if (!strstr($tmp[0], "lo")){
-							$nic = new nic();
-							$nic->setIpAddress($tmp[3]);
-							$nic->setMAC($mac);
-							$nic->setName($tmp[0]);
-							$nic->setRxBytes($tmp[5]);
-							$nic->setTxBytes($tmp[7]);
-							$nic->setErrors($tmp[6] + $tmp[8]);
-							$this->sys->setNics($nic);
-						}
-					}
-				}
+			$tmp = preg_split("/\s+/", $text);
+			if (! empty($tmp[0]) && ! empty($tmp[3]) && !strstr($tmp[0], 'lo')) {
+				
+				$name = explode(':', $tmp[0]);
+				$mac = $macs[$name[0]];
+				
+				$dev = new nic();
+                $dev->setName($tmp[0]);
+				$dev->setIpAddress($tmp[3]);
+				$dev->setMAC($mac);
+                $dev->setRxBytes($tmp[4]);
+                $dev->setTxBytes($tmp[6]);
+                $dev->setErrors($tmp[5] + $tmp[7]);
+                $dev->setDrops($tmp[8]);
+                $this->sys->setNics($dev);
 			}
 		}
 		
@@ -262,15 +252,16 @@ class hpux extends parser {
 		$this->getUptime();
 		
 		$this->getFilesystem();
-		/*$this->getMemory();
-		
+		$this->getSwapdevice();
+		$this->getMemory();
+		$this->getNic();
 		
 		
 		
 		$this->getCpu();
 		
-		$this->getSwapdevice();
-		$this->getNic();*/
+		
+		
 		$this->deleteConfig();
 		$this->ssh->disconnect();
 	}

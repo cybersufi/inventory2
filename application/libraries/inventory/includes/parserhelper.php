@@ -25,6 +25,7 @@ class parserhelper {
 		$df = explode("\n", $dfresult);
 		foreach ($df as $df_line) {
 			$df_buf1 = preg_split("/(\%\s)/", $df_line, 2);
+			print_r($df_buf1);
 			if (count($df_buf1) != 2) {
 			    continue;
 			}
@@ -38,14 +39,22 @@ class parserhelper {
 	
 	public static function bdf($dfresult) {
 		$res = array();
-		$df = explode("\n", $dfresult);
+		$df = preg_split("/\n/", $dfresult, -1, PREG_SPLIT_NO_EMPTY);
+		$temp = "";
+		unset($df[0]);
 		foreach ($df as $df_line) {
 			$df_buf1 = preg_split("/(\%\s)/", $df_line, 2);
-			if (count($df_buf1) == 1 ) {
+			if (count($df_buf1) != 2 ) {
+				$temp = $df_buf1[0];
 			    continue;
 			}
 			if (preg_match("/(.*)(\s+)(([0-9]+)(\s+)([0-9]+)(\s+)([0-9]+)(\s+)([0-9]+)$)/", $df_buf1[0], $df_buf2)) {
-				$df_buf = array($df_buf2[1], $df_buf2[4], $df_buf2[6], $df_buf2[8], $df_buf2[10], $df_buf1[1]);
+				if (strcmp($temp, "") != 0) {
+					$df_buf = array ($temp, $df_buf2[4], $df_buf2[6], $df_buf2[8], $df_buf2[10], $df_buf1[1]);
+					$temp = "";
+				} else {
+					$df_buf = array($df_buf2[1], $df_buf2[4], $df_buf2[6], $df_buf2[8], $df_buf2[10], $df_buf1[1]);
+				}
 				array_push($res, $df_buf);
 			}
 		}

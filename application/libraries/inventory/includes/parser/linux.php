@@ -279,7 +279,7 @@ class linux extends parser {
 	
 	function run() {
 		$this->ssh->connect();
-		$this->getHostname();
+		/*$this->getHostname();
 		$this->getKernel();
 		$this->getSystemModel();
 		$this->getMemory();
@@ -287,11 +287,11 @@ class linux extends parser {
 		$this->getSerial();
 		$this->getOsBit();
 		$this->getUptime();
-		$this->getDistribution();
+		$this->getDistribution();*/
 		$this->getFilesystem();
-		$this->getSwapdevice();
+		/*$this->getSwapdevice();
 		$this->getNic();
-		$this->getCpu();
+		$this->getCpu();*/
 		$this->ssh->disconnect();
 	}
 }
