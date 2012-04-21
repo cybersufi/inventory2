@@ -1,10 +1,20 @@
 .login_form {
 	width:600px;
-	height:250px;
-	background:url(../../../images/administrator/login/login_bg.png) no-repeat center top;
+	/*height:250px;
+	background:url(../../../images/administrator/login/login_bg.png) no-repeat center top;*/
+	background: #fff;
 	margin:20px 0 0 145px;
 	float:left;
 	padding:0px 0 0 0px;
+	
+	border: 1px solid #ccc;
+	border-top: 0;
+	float: left;
+	height: 100%;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
 }
 
 .form {
@@ -36,7 +46,7 @@ label.check_label{
 /*Radio*/
 .NFRadio {cursor:pointer; position:absolute; display:block; width:20px; height:20px; border:1px solid transparent; background:url(../../../images/administrator/login/radio.gif) no-repeat 0 0; z-index:2;}
 /*Checkbox*/
-.NFCheck {cursor:pointer; position:absolute;width:20px; margin:0px 0 0 0; height:20px; border:1px solid transparent; background:url(../../../images/administrator/login/checkbox.gif) no-repeat 0 0; z-index:2;}
+.NFCheck {cursor:pointer; position:absolute;width:20px; margin:0px 0 0 0; height:20px; border:1px solid transparent; background:url('../../../images/administrator/login/checkbox.gif') no-repeat 0 0; z-index:2;}
 /*Buttons*/
 .NFButton {width:auto; height:34px; padding:0 15px; font-weight:bold; background:url(../../../images/administrator/login/button.gif) repeat-x 0 0; cursor:pointer; border:none;color:#FFFFFF; text-shadow:1px 1px #45add8;vertical-align:middle;}
 .NFButtonLeft, .NFButtonRight {width:10px; height:34px; vertical-align:middle;}

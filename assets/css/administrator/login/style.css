@@ -65,3 +65,6 @@ a.forgot_pass {
 .left_footer_login {float:left;padding:15px 0 0 10px;color:#a8549b;font-size:11px;}
 .left_footer_login a {color:#FFFFFF;text-decoration:none;}
 .right_footer_login {float:right;padding:15px 10px 0 0;}
+
+.error_box{width:518px;clear:both;background:url(../../../images/administrator/login/error.png) no-repeat left #fce9e9;
+border:1px #eac7c7 solid;background-position:15px 10px;padding:20px 20px 15px 60px;margin:0 0 0 0;}

@@ -1,9 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php if ( ! defined('APPPATH')) exit('No direct script access allowed'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Site Administration</title>
+	<script type="text/javascript">
+		var base_url = "<?php echo $this->config->base_url(); ?>";
+	</script>
 	<?php
   		$this->asset->stylesheet('administrator/login/style');
 		$this->asset->stylesheet('administrator/login/niceforms-default');
@@ -30,9 +33,22 @@
 		</div>
 		
      	<div class="login_form">
-        	<h3>Admin Panel Login</h3>
-         	<a href="#" class="forgot_pass">Forgot password</a> 
-         	<form action="" method="post" class="niceform">
+        	<h3>Administrator Login</h3>
+        	<?php
+				if ($this->session->flashdata('success') == 'baka') {
+			?>
+				<div class="error_box">
+			        <?php 
+			        	//echo $msg 
+			        	echo 'baka';
+			        	echo $this->session->flashdata('msg');
+			        ?>
+			    </div>
+			<?php		
+				}
+			?>
+         	<!--<a href="#" class="forgot_pass">Forgot password</a>-->
+         	<form action="<?php echo $this->config->base_url().'administrator/login/dologin' ?>" method="post" class="niceform">
 	         	<fieldset>
 	            	<dl>
 						<dt><label for="email">Username:</label></dt>
@@ -44,9 +60,7 @@
 	                </dl>
 					<dl>
 	                    <dt><label></label></dt>
-	                    <dd>
-	        	            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Remember me</label>
-	                    </dd>
+	                    <dd></dd>
 	                </dl>        
 					<dl class="submit">
 	                	<input type="submit" name="submit" id="submit" value="Enter" />

@@ -14,11 +14,14 @@ class Login extends CI_Controller {
 		$this->load->library('redux_auth');
 	}
 	
-	/*public function index() {
+	public function index() {
 		$data['site_name'] = $this->sitename;
 		$data['username'] = $this->session->userdata('uname');
 		$data['lastlogin'] = $this->session->userdata('lastlogin');
 		$data['ipaddress'] = $this->session->userdata('ipaddress');
+		
+		echo $this->session->userdata('msg');
+		
 		if (!empty($data['username'])) {
 			if ($this->uri->segment(1) === FALSE) {
 				$this->load->view('siteadmin/mainpage/main_index', $data);
@@ -28,9 +31,9 @@ class Login extends CI_Controller {
 			}
 		}
 		else {
-			$this->load->view('inventory/siteadmin/login/login_index', $data);
+			$this->load->view('administrator/login2/login_index', $data);
 		}
-	}*/
+	}
 	
 	function test() {
 		echo "test";
@@ -85,14 +88,14 @@ class Login extends CI_Controller {
 						$data['success'] = 'false';
 						$data['msg'] = 'Access Denied.';
 				}
-				
-				//$this->load->view('inventory/login/login_result', $data);
-				$this->load->view('administrator/login/login_index', $data);
-			}
-			else {
+				$this->session->set_userdata($data);
+				$this->load->view('inventory/login/login_result', $data);
+				//$this->load->view('administrator/login2/login_index', $data);
+			} else {
 				$data['success'] = 'false';
 				$data['msg'] = 'Invalid data, Please try again';
-				$this->load->view('administrator/login/login_index', $data);
+				$this->session->set_userdata($data);
+				$this->load->view('administrator/login2/login_result', $data);
 			}
 		} else {
 			$this->load->view('siteadmin/page_redirect');
