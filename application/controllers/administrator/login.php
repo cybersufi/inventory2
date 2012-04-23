@@ -19,8 +19,14 @@ class Login extends CI_Controller {
 		$data['username'] = $this->session->userdata('uname');
 		$data['lastlogin'] = $this->session->userdata('lastlogin');
 		$data['ipaddress'] = $this->session->userdata('ipaddress');
+		$data['success'] = $this->session->userdata('success');
+		$data['msg'] = $this->session->userdata('msg');
 		
-		echo $this->session->userdata('msg');
+		if (!empty($data['success'])) {
+			print_r($data);
+		}
+		
+		print_r($data);
 		
 		if (!empty($data['username'])) {
 			if ($this->uri->segment(1) === FALSE) {
@@ -88,13 +94,18 @@ class Login extends CI_Controller {
 						$data['success'] = 'false';
 						$data['msg'] = 'Access Denied.';
 				}
+				//$this->session->set_userdata($data);
 				$this->session->set_userdata($data);
-				$this->load->view('inventory/login/login_result', $data);
-				//$this->load->view('administrator/login2/login_index', $data);
+				//redirect(base_url('administrator/login'), 'location	');
+				//$this->load->view('inventory/login/login_result', $data);
+				$this->load->view('administrator/login2/login_index', $data);
 			} else {
 				$data['success'] = 'false';
 				$data['msg'] = 'Invalid data, Please try again';
-				$this->session->set_userdata($data);
+				//$this->session->set_userdata($data);
+				$this->session->set_userdata('success', $data['success']);
+				$this->session->set_userdata('success', $data['msg']);
+				//redirect(base_url('administrator/login'), 'refresh');
 				$this->load->view('administrator/login2/login_result', $data);
 			}
 		} else {

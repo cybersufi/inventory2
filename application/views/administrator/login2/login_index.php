@@ -35,13 +35,15 @@
      	<div class="login_form">
         	<h3>Administrator Login</h3>
         	<?php
-				if ($this->session->flashdata('success') == 'baka') {
+				if ($this->session->flashdata('success') == 'false') {
 			?>
 				<div class="error_box">
 			        <?php 
 			        	//echo $msg 
 			        	echo 'baka';
 			        	echo $this->session->flashdata('msg');
+						//$this->session->unset_userdata('success');
+						//$this->session->unset_userdata('msg');
 			        ?>
 			    </div>
 			<?php		
