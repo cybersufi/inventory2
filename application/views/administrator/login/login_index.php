@@ -1,109 +1,80 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php if ( ! defined('APPPATH')) exit('No direct script access allowed'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  	<meta name="generator" content="Joomla! - Open Source Content Management" />
-  	<title>Inventory - Administration</title>
-  	<?php
-  		$this->asset->stylesheet('administrator/system');
-		$this->asset->stylesheet('administrator/template');
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Site Administration</title>
+	<script type="text/javascript">
+		var base_url = "<?php echo $this->config->base_url(); ?>";
+	</script>
+	<?php
+  		$this->asset->stylesheet('administrator/login/style');
+		$this->asset->stylesheet('administrator/login/niceforms-default');
+		$this->asset->javascript('administrator/login/jquery.min');
+		$this->asset->javascript('administrator/login/jconfirmaction.jquery');
+		$this->asset->javascript('administrator/login/niceforms');
   	?>
-  	<style type="text/css">
-		/*html { display:none }*/
-  	</style>
-  	<!--<script src="/website/joomla/media/system/js/mootools-core.js" type="text/javascript"></script>
-  	<script src="/website/joomla/media/system/js/core.js" type="text/javascript"></script>-->
 	<script type="text/javascript">
-		window.addEvent('domready', function () {
-			if (top == self) {
-				document.documentElement.style.display = 'block'; 
-			} else {
-				top.location = self.location; 
-			}
+		
+		$(document).ready(function() {
+			$('.ask').jConfirmAction();
 		});
-  	</script>
-
-
-<!--[if IE 7]>
-<link href="templates/bluestork/css/ie7.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-
-	<script type="text/javascript">
-		window.addEvent('domready', function () {
-			document.getElementById('form-login').username.select();
-			document.getElementById('form-login').username.focus();
-		});
+		
 	</script>
 </head>
 <body>
-	<div id="border-top" class="h_blue">
-		<span class="title"><a href="index.php">Administration</a></span>
-	</div>
-	<div id="content-box">
-		<div id="element-box" class="login">
-			<div class="m wbg">
-				<h1>Administrator Login</h1>	
-				<div id="system-message-container">
-					<?php
-						if (isset ($success) && ($success == 'false')) {
-					?>
-						<dl id="system-message">
-							<dt class="error">Error</dt>
-							<dd class="error message">
-								<ul>
-									<li><?php echo $msg ?></li>
-								</ul>
-							</dd>
-						</dl>
-					<?php		
-						}
-					?>
-				</div>
-				<div id="section-box">
-					<div class="m">
-						<form action="<?php echo $base_url; ?>administrator/login/doLogin" method="post" id="form-login">
-							<fieldset class="loginform">
-								<label id="mod-login-username-lbl" for="mod-login-username">User Name</label>
-								<input name="username" id="mod-login-username" type="text" class="inputbox" size="15" />
-
-								<label id="mod-login-password-lbl" for="mod-login-password">Password</label>
-								<input name="password" id="mod-login-password" type="password" class="inputbox" size="15" />
-
-								<div class="button-holder">
-									<div class="button1">
-										<div class="next">
-											<a href="#" onclick="document.getElementById('form-login').submit();">
-												Log in
-											</a>
-										</div>
-									</div>
-								</div>
-
-								<div class="clr"></div>
-								<input type="submit" class="hidebtn" value="Log in" />
-								<input type="hidden" name="option" value="com_login" />
-								<input type="hidden" name="task" value="login" />
-								<input type="hidden" name="return" value="aW5kZXgucGhw" />
-								<input type="hidden" name="86c327aaabd5ae2d1dbc601384ff15b4" value="1" />	</fieldset>
-						</form>
-						<div class="clr"></div>
-					</div>
-				</div>
-	
-				<p>Use a valid username and password to gain access to the administrator backend.</p>
-				<p><a href="http://localhost/website/joomla/">Go to site home page.</a></p>
-				<div id="lock"></div>
-			</div>
+	<div id="main_container">
+		<div class="header_login">
+    		<div class="logo"><a href="#">
+    			<?php
+					$this->asset->image('administrator/login/logo.gif');
+				?>
+    		</a></div>
 		</div>
-		<noscript>
-				Warning! JavaScript must be enabled for proper operation of the Administrator backend.			
-		</noscript>
-	</div>
-	<div id="footer">
-		<p class="copyright">
-			Maintained by UNIX team.		
-		</p>
-	</div>
+		
+     	<div class="login_form">
+        	<h3>Administrator Login</h3>
+        	<?php
+				if ($this->session->flashdata('success') == 'false') {
+			?>
+				<div class="error_box">
+			        <?php 
+			        	echo $this->session->flashdata('msg');
+			        ?>
+			    </div>
+			<?php		
+				}
+			?>
+         	<!--<a href="#" class="forgot_pass">Forgot password</a>-->
+         	<form action="<?php echo $this->config->base_url().'administrator/login/dologin' ?>" method="post" class="niceform">
+	         	<fieldset>
+	            	<dl>
+						<dt><label for="username">Username:</label></dt>
+	                	<dd><input type="text" name="username" id="username" size="54" /></dd>
+	                </dl>
+	                <dl>
+	                    <dt><label for="password">Password:</label></dt>
+	                    <dd><input type="password" name="password" id="password" size="54" /></dd>
+	                </dl>
+					<dl>
+	                    <dt><label></label></dt>
+	                    <dd></dd>
+	                </dl>        
+					<dl class="submit">
+	                	<input type="submit" name="submit" id="submit" value="Enter" />
+					</dl> 
+	            </fieldset>    
+         	</form>
+     	</div>
+     	
+		<div class="footer_login">
+    		<div class="left_footer_login">Maintained by UNIX team | Powered by <a href="http://indeziner.com">INDEZINER</a></div>
+    		<div class="right_footer_login"><a href="http://indeziner.com">
+    				<?php
+						$this->asset->image('administrator/login/indeziner_logo.gif');
+					?>
+    		</a></div>
+		</div>
+	</div>		
 </body>
 </html>

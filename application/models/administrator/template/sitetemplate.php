@@ -19,7 +19,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show Link',
-					'link' => $this->base_url.'administrator/menu',
+					'link' => base_url('administrator/menu'),
 					'icon_cls' => 'icn_categories',
 				),
 				array (
@@ -35,7 +35,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show User',
-					'link' => $this->base_url.'administrator/user',
+					'link' => base_url('administrator/user'),
 					'icon_cls' => 'icn_view_users',
 				),
 				array (
@@ -72,7 +72,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Logout',
-					'link' => '#',
+					'link' => base_url('administrator/login/dologout'),
 					'icon_cls' => 'icn_jump_back',
 				),
 			)

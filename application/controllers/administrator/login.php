@@ -19,30 +19,13 @@ class Login extends CI_Controller {
 		$data['username'] = $this->session->userdata('uname');
 		$data['lastlogin'] = $this->session->userdata('lastlogin');
 		$data['ipaddress'] = $this->session->userdata('ipaddress');
-		$data['success'] = $this->session->userdata('success');
-		$data['msg'] = $this->session->userdata('msg');
-		
-		if (!empty($data['success'])) {
-			print_r($data);
-		}
-		
-		print_r($data);
 		
 		if (!empty($data['username'])) {
-			if ($this->uri->segment(1) === FALSE) {
-				$this->load->view('siteadmin/mainpage/main_index', $data);
-			}
-			else {
-				$this->load->view('page_redirect', $data);
-			}
+			redirect(base_url('administrator/main'), 'refresh');
 		}
 		else {
-			$this->load->view('administrator/login2/login_index', $data);
+			$this->load->view('administrator/login/login_index', $data);
 		}
-	}
-	
-	function test() {
-		echo "test";
 	}
 	
 	function doLogin() {
@@ -94,29 +77,23 @@ class Login extends CI_Controller {
 						$data['success'] = 'false';
 						$data['msg'] = 'Access Denied.';
 				}
-				//$this->session->set_userdata($data);
-				$this->session->set_userdata($data);
-				//redirect(base_url('administrator/login'), 'location	');
-				//$this->load->view('inventory/login/login_result', $data);
-				$this->load->view('administrator/login2/login_index', $data);
+				$this->session->set_flashdata($data);
+				redirect(base_url('administrator/login'), 'location	');
 			} else {
 				$data['success'] = 'false';
 				$data['msg'] = 'Invalid data, Please try again';
-				//$this->session->set_userdata($data);
-				$this->session->set_userdata('success', $data['success']);
-				$this->session->set_userdata('success', $data['msg']);
-				//redirect(base_url('administrator/login'), 'refresh');
-				$this->load->view('administrator/login2/login_result', $data);
+				$this->session->set_flashdata($data);
+				redirect(base_url('administrator/login'), 'refresh');
 			}
 		} else {
-			$this->load->view('siteadmin/page_redirect');
+			redirect(base_url('administrator/main'), 'refresh');
 		}
 	}
 	
 	function doLogout() {
 		$this->redux_auth->logout();
 		$data['site_name'] = $this->sitename;
-		$this->load->view('administrator/main', $data);
+		redirect(base_url('administrator/login'), 'refresh');
 	}
 }
 
