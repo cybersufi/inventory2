@@ -59,22 +59,24 @@ Ext.define('App.Administrator.UserList', {
     	flex: 0.17,
 	}, {
     	xtype: 'actioncolumn',
-    	width: 50,
     	items: [{
-        	icon   : '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
+        	icon   : '../assets/images/administrator/icn_edit.png',  // Use a URL in the icon config
+        	//iconCls: 'edit',
         	tooltip: 'Edit User',
         	handler: function(grid, rowIndex, colIndex) {
             	var rec = store.getAt(rowIndex);
             	alert("Sell " + rec.get('company'));
         	}
        }, {
-        	icon   : '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
+        	icon   : '../assets/images/administrator/icn_trash.png',  // Use a URL in the icon config
+        	//iconCls: 'delete',
         	tooltip: 'Delete User',
         	handler: function(grid, rowIndex, colIndex) {
             	var rec = store.getAt(rowIndex);
             	alert("Sell " + rec.get('company'));
         	}
-       }]
+       }],
+       flex: 0.1,
     }],
     	
 	viewConfig: {

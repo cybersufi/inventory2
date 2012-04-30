@@ -4,8 +4,6 @@ class User extends CI_Controller {
 		
 	private $base_url;
 	private $sitename;
-	private $func_name;
-	private $breadcumbs;
 	
 	private $index;
 	private $result;
@@ -13,13 +11,12 @@ class User extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->CI =& get_Instance();
-		$this->base_url = $this->CI->config->item('base_url');
+		$this->base_url = base_url();
 		$this->sitename = $this->CI->config->item('site_name');
-		$this->func_name = 'User';
-		$this->breadcumbs = array();
 		
 		$this->index = 'administrator/user/user_index';
 		$this->result = 'administrator/user/user_result';
+		
 		$this->load->library('redux_auth');
 		$this->load->model('administrator/user/usermodel','um');
 		
