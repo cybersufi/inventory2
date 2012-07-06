@@ -23,7 +23,7 @@ class User extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->loadExt();
+		//$this->loadExt();
 		$this->prepareHeader();
 		$this->prepareSecondaryBar();
 		$this->prepareSiteNav();
@@ -575,16 +575,18 @@ class User extends CI_Controller {
 	}
 	
 	private function loadContent() {
-		$data ['page_title'] = $this->func_name;
-		$this->template->write_view('content', 'administrator/user/user_list_index', $data, TRUE);
+		$data ['userdata'] = array();
+		$this->template->write_view('content', 'administrator/user/user_list', $data, TRUE);
+		//$this->template->write_view('content', 'administrator/user/user_list');
 	}
 	
 	private function loadExt() {
-		$this->template->write_view('javascript', 'administrator/user/include', '', TRUE);
+		//$this->template->write_view('javascript', 'administrator/user/include', '', TRUE);
 	}
 	
 	private function prepareHeader() {
-		$data ['page_title'] = $this->func_name;
+		//$data ['page_title'] = $this->func_name;
+		$data ['page_title'] = "bababa";
 		$this->template->write_view('header', 'administrator/master/header_template', $data, TRUE);
 	}
 	
