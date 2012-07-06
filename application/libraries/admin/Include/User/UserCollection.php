@@ -7,6 +7,11 @@ class UserCollection extends Collections {
 		parent::__construct(gettype(new User));
 	}
 	
+	public function getUsers() {
+		$list = $this->getIterator();
+		return $list;
+	}
+
 	public function toArray () {
 		$array = array();
 		$it = $this->getIterator();

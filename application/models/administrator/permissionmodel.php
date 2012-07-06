@@ -7,8 +7,8 @@ class Permissionmodel extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
-		$this->perm_data = "perm_data";
-		$this->user_perm = "user_perms";
+		$this->perm_data = "acl_perm_data";
+		$this->user_perm = "acl_user_perms";
 	}
 
 	public function permissionCount($filters=null) {
@@ -56,6 +56,59 @@ class Permissionmodel extends CI_Model {
 				$coll->add($perm);
 			}
 			return $coll;
+		} else {
+			return null;
+		}
+  	}
+
+  	public function addPermission($perm) {
+  		$pt = $this->perm_data;
+  		$data = array(
+			'permkey' => $perm->getKey(),
+			'permname' => $perm->getName(),
+		);
+  		$this->db->insert($pt, $data);
+  		return ($this->db->affected_rows() == 1) ? true : false ;
+  	}
+
+  	public function getPermissionByName($perm_name) {
+  		$pt = $this->perm_data;
+    	$filter = array($pt.'.permname' => $perm_name);
+    	return $this->getPermission($filter);
+  	}
+
+  	public function getPermissionById($perm_id) {
+  		$pt = $this->perm_data;
+    	$filter = array($pt.'.id' => $perm_id);
+    	return $this->getPermission($filter);
+  	}
+
+  	public function getPermissionByKey($perm_key) {
+  		$pt = $this->perm_data;
+    	$filter = array($pt.'.permkey' => $perm_key);
+    	return $this->getPermission($filter);
+  	}
+
+  	private function getPermission($filter) {
+  		$pt = $this->perm_data;
+    
+    	$this->db->select($pt.'.id, '.
+					  $pt.'.permkey, '.
+					  $pt.'.permname')
+    	->from($pt)
+      	->where($filter)
+      	->limit(1,0)
+      	->get();
+    
+    	$res = $this->db->get();
+    		
+		if ($res->num_rows() > 0) {
+			$row = $sql->row();
+			$perm = new Permission();
+			$perm->setId($row->id);
+			$perm->setName($row->permname);
+			$perm->SetKey($row->permkey);
+			return $perm;
 		} else {
 			return null;
 		}

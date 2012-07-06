@@ -14,6 +14,7 @@ class User{
 	private $currentIp = "";
 	private $bannedReason = "";
 	private $lastActive = "";
+	private $creationDate = "";
 
 	private $credential = null;
 
@@ -128,6 +129,14 @@ class User{
 	
 	public function setLastActive($lastActive) {
 		$this->lastActive = $lastActive;
+	}
+
+	public function getCreationDate() {
+		return $this->creationDate;
+	}
+
+	public function setCreationDate($date) {
+		$this->creationDate = $date;
 	}
 	
 	public function getCredential() {

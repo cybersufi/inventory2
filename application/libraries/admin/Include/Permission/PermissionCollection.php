@@ -6,6 +6,10 @@ class PermissionCollection extends Collections {
 	{
 		parent::__construct(gettype(new Permission));
 	}
+
+	public function getPermissions() {
+		return $this->getIterator();
+	}
 	
 	public function toArray () {
 		$array = array();

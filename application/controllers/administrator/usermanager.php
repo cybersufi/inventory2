@@ -4,11 +4,21 @@ class usermanager extends CI_Controller {
 	
 	private $result = "";
 	private $timingStart = "";
+	private $user_config = "";
 	
 	public function __construct() {
 		parent::__construct();
 		$this->CI =& get_Instance();
 		$this->sitename = $this->CI->config->item('site_name');
+
+		$this->config->load('administrator');
+		$user_config = $this->config->item('admin');
+
+		foreach($user_config['usermanager'] as $key => $value)
+		{
+			$this->user_config->$key = $value;
+		}
+
 		$this->load->library('admin');
 		$this->load->model('administrator/usermodel', 'um');
 		$this->index = 'administrator/user/index';
@@ -17,49 +27,52 @@ class usermanager extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->view('administrator/main');
+		//$this->load->view('administrator/main');
+		print_r($this->user_config->usermanager['userlist']);
 		return null;
 	}
 	
 	public function userList() {
 		$data['timingStart'] = $this->timingStart;
-		//$issiteadmin = $this->session->userdata('issiteadmin');
-		//if ($issiteadmin) {
-			$start = $this->input->get_post('start');
-	    	$limit = $this->input->get_post('limit');
-	    	$filters = $this->input->get_post('filter');
-			$sort = $this->input->get_post('sort');
-	    	$isFiltered = false;
-			$isSorted = false;
-	    	$collection = "";
-	    	
-		    if (!empty($filters)) {
-		      	$isFiltered = true;
-		      	$filters = $this->filterParser($filters);
-		    }
-			
-			if (!empty($sort)) {
-				$isSorted = true;
-				$sort = $this->sortParser($sort);
-			} else {
-				$sort = NULL;
-			}
-	    	
-			$start = empty($start) ? 0 : $start;
-			$limit = empty($limit) ? 0 : $limit;
-			$filters = ($isFiltered) ? $filters : NULL;
-			$sort = ($isSorted) ? $sort : NULL;
-			
-			$this->load->model('administrator/usermodel','um');
-			$collection = $this->um->getUserList($start, $limit, $sort, $filters);
-			
-	    	$res['data'] = ($collection) ? $collection->toArray() : array();
-			$res['totalCount'] = $this->um->userCount($filters);
-			$data['status'] = 'ok';
-			$data['success'] = true;
-			$data['result'] = $res;
-		//}
-    	$this->load->view($this->result, $data);
+		
+		$start = $this->input->get_post('start');
+    	$limit = $this->input->get_post('limit');
+    	$filters = $this->input->get_post('filter');
+		$sort = $this->input->get_post('sort');
+    	$isFiltered = false;
+		$isSorted = false;
+    	$collection = "";
+    	
+	    if (!empty($filters)) {
+	      	$isFiltered = true;
+	      	$filters = $this->filterParser($filters);
+	    }
+		
+		if (!empty($sort)) {
+			$isSorted = true;
+			$sort = $this->sortParser($sort);
+		} else {
+			$sort = NULL;
+		}
+    	
+		$start = empty($start) ? 0 : $start;
+		$limit = empty($limit) ? 0 : $limit;
+		$filters = ($isFiltered) ? $filters : NULL;
+		$sort = ($isSorted) ? $sort : NULL;
+		
+		$this->load->model('administrator/usermodel','um');
+		$collection = $this->um->getUserList($start, $limit, $sort, $filters);
+		
+		if ($collection) {
+			$data['userdata'] = $collection->getUsers();
+		} else {
+			$data['userdata'] = array();
+		}
+
+		$this->prepareTemplate();
+		$this->loadContent('userlist', $data);
+
+		$this->template->render();
 	}
 	
 	public function addUser() {
@@ -240,6 +253,20 @@ class usermanager extends CI_Controller {
 		}
     
 		return $where;
+	}
+
+	private function loadContent($func_name, $data) {
+		//$data ['userdata'] = array();
+		$this->template->write_view('content', $this->user_config->content_file[$func_name], $data, TRUE);
+	}
+	
+	private function prepareTemplate() {
+		$this->load->model('administrator/template/sitetemplate', 'site_template');
+		$data['links'] = $this->site_template->siteNavigation();
+		$data['page_title'] = "bababa";
+		$this->template->write_view('header', 'administrator/master/header_template', $data, TRUE);
+		$this->template->write_view('secondary_bar', 'administrator/master/secondarybar_template', '',TRUE);
+		$this->template->write_view('sidebar', 'administrator/master/sitelink_template', $data, TRUE);
 	}
 }
 

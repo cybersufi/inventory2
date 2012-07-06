@@ -35,7 +35,7 @@ class SiteTemplate extends CI_Model {
 			'links' => array (
 				array (
 					'text' => 'Show User',
-					'link' => base_url('administrator/user'),
+					'link' => base_url('administrator/usermanager/userlist'),
 					'icon_cls' => 'icn_view_users',
 				),
 				array (
@@ -62,6 +62,22 @@ class SiteTemplate extends CI_Model {
 				array (
 					'text' => 'New Group',
 					'link' => '#',
+					'icon_cls' => 'icn_add_user',
+				),
+			)
+		);
+
+		$res[] = array(
+			'text' => 'Permission',
+			'links' => array (
+				array (
+					'text' => 'Permission List',
+					'link' => base_url('administrator/permissionmanager/permissionlist'),
+					'icon_cls' => 'icn_view_users',
+				),
+				array (
+					'text' => 'New Permission',
+					'link' => base_url('administrator/permissionmanager/newpermission'),
 					'icon_cls' => 'icn_add_user',
 				),
 			)
