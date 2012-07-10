@@ -13,7 +13,7 @@ class permissionmanager extends CI_Controller {
 		$this->result = 'administrator/result';
 		$this->timingStart = microtime(true);
 		$this->config->load('administrator');
-		$config = $this->config->item('admin');
+		$config = $this->config->item('administrator');
 
 		foreach($config['permmanager'] as $key => $value) {
 			$this->perm_config->$key = $value;
@@ -76,7 +76,7 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function newPermission() {
-
+		$this->output->enable_profiler(TRUE);
 		$message = $this->session->flashdata('message');
 		if (!empty($message)) {
 			$data['message'] = $this->session->flashdata('message');
@@ -94,12 +94,14 @@ class permissionmanager extends CI_Controller {
 				$perm->setName($perm_name);
 				$perm->SetKey($perm_key);
 				$this->load->model('administrator/permissionmodel','pm');
-				$res = $this->pm->addPermission($perm);
-				if ($res) {
+
+				try {
+					$res = $this->pm->addPermission($perm);
 					$data['message'] = 'Permission successfuly added';
-				} else {
-					$data['message'] = 'Unable to add permission. Please try again latter';
+				} catch (SerializableException $e) {
+					$data['message'] = $e->getMessage();
 				}
+
 			break;
 			case 'cancel':
 				$data['is_new'] = false;
@@ -122,12 +124,63 @@ class permissionmanager extends CI_Controller {
 		}
 	}
 
-	public function editPermission() {
-		return null;
+	public function editPermission($permId) {
+		$this->load->model('administrator/permissionmodel', 'pm');
+		
+		$perm_name = $this->input->get_post('perm_name');
+		$perm_key = $this->input->get_post('perm_key');
+		$act = strtolower($this->input->get_post('action'));
+
+		switch ($act) {
+			case 'save and exit':
+				$data['is_exit'] = true;
+			case 'save':
+				$perm = new Permission();
+				$perm->setName($perm_name);
+				$perm->SetKey($perm_key);
+				$this->load->model('administrator/permissionmodel','pm');
+
+				try {
+					$res = $this->pm->addPermission($perm);
+					$data['message'] = 'Permission successfuly added';
+				} catch (SerializableException $e) {
+					$data['message'] = $e->getMessage();
+				}
+
+			break;
+			case 'cancel':
+				$data['is_new'] = false;
+				$data['message'] = "Adding action canceled. No permission added to database";
+			break;
+			default:
+				$data['is_new'] = true;
+			break;
+		}
+
+
+		try {
+			$perm = $this->pm->getPermissionById($permId);
+		} catch (SerializableException $e) {
+			$this->session->set_flashdata('message', $e->getMessage());
+			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
+		}
+
+
 	}
 
-	public function deletePermission() {
-		return null;
+	public function deletePermission($permId) {
+		$this->load->model('administrator/permissionmodel','pm');
+		$res = $this->pm->deletePermission($permId);
+		if ($res) {
+			$data['message'] = 'Permission successfuly deleted';
+		} else {
+			$data['message'] = 'Unable to delete permission. Please try again latter';
+		}
+
+		if ($data['message']) {
+			$this->session->set_flashdata('message', $data['message']);
+		}
+		redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 	}
 
 	private function loadContent($func_name, $data) {

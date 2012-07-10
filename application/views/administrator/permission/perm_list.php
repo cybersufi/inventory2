@@ -9,7 +9,8 @@
 			<thead> 
 				<tr> 
 					<th></th> 
-					<th>Permission Name</th> 
+					<th>Permission Name</th>
+					<th>Permission Key</th>
 					<th>Actions</th>
 				</tr> 
 			</thead> 
@@ -21,9 +22,17 @@
 				<?php else: ?>
 					<?php foreach ($permlist as $perm): ?>
 						<tr> 
-							<td><input type="checkbox"></td> 
+							<td><input type="checkbox" name="ids[]" value="<?php echo $perm->getId(); ?>"></td> 
 							<td><?php echo $perm->getName(); ?></td>
-							<td><input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_edit.png" title="Edit"><input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_trash.png" title="Trash"></td> 
+							<td><?php echo $perm->getKey(); ?></td>
+							<td>
+								<a href="<?php echo base_url('administrator/permissionmanager/editpermission/'.$perm->getId()); ?>">
+									<input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_edit.png" title="Edit">
+								</a>
+								<a href="<?php echo base_url('administrator/permissionmanager/deletepermission/'.$perm->getId()); ?>">
+									<input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_trash.png" title="Trash">
+								</a>
+							</td> 
 						</tr>
 					<?php endforeach; ?>
 				<?php endif; ?> 

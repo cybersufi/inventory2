@@ -12,7 +12,7 @@ class usermanager extends CI_Controller {
 		$this->sitename = $this->CI->config->item('site_name');
 
 		$this->config->load('administrator');
-		$user_config = $this->config->item('admin');
+		$user_config = $this->config->item('administrator');
 
 		foreach($user_config['usermanager'] as $key => $value)
 		{

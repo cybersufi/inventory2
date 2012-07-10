@@ -63,59 +63,76 @@ class Permissionmodel extends CI_Model {
 
   	public function addPermission($perm) {
   		$pt = $this->perm_data;
-  		$data = array(
-			'permkey' => $perm->getKey(),
-			'permname' => $perm->getName(),
-		);
-  		$this->db->insert($pt, $data);
+  		$p = $this->getPermissionByName($perm->getName());
+
+  		if (!$p) {
+  			$p = $this->getPermissionByKey($perm->getKey());
+  			if (!$p) {
+		  		
+		  		$data = array(
+					'permkey' => $perm->getKey(),
+					'permname' => $perm->getName(),
+				);
+		  		$this->db->insert($pt, $data);
+
+		  		if ($this->db->affected_rows() == 1) {
+		  			return true;
+		  		} else {
+		  			throw new PermissionAddFailedException();
+		  		}
+		  	} else {
+		  		throw new KeyAlreadyExistsException($perm->getKey());
+		  	}
+	  	} else {
+	  		throw new PermissionAlreadyExistsException($perm->getName());
+	  	}
+  	}
+
+  	public function deletePermission($permId) {
+  		$pt = $this->perm_data;
+  		$this->db->delete($pt, array('id' => $permId));
   		return ($this->db->affected_rows() == 1) ? true : false ;
   	}
 
   	public function getPermissionByName($perm_name) {
   		$pt = $this->perm_data;
-    	$filter = array($pt.'.permname' => $perm_name);
+    	$filter = $pt.'.permname = "'.$perm_name.'"';
     	return $this->getPermission($filter);
   	}
 
   	public function getPermissionById($perm_id) {
   		$pt = $this->perm_data;
-    	$filter = array($pt.'.id' => $perm_id);
+    	$filter = $pt.'.id = "'.$perm_id.'"';
     	return $this->getPermission($filter);
   	}
 
   	public function getPermissionByKey($perm_key) {
   		$pt = $this->perm_data;
-    	$filter = array($pt.'.permkey' => $perm_key);
+    	$filter = $pt.'.permkey = "'.$perm_key.'"';
     	return $this->getPermission($filter);
   	}
 
   	private function getPermission($filter) {
   		$pt = $this->perm_data;
-    
     	$this->db->select($pt.'.id, '.
 					  $pt.'.permkey, '.
 					  $pt.'.permname')
     	->from($pt)
       	->where($filter)
-      	->limit(1,0)
-      	->get();
+      	->limit(1,0);
     
     	$res = $this->db->get();
     		
 		if ($res->num_rows() > 0) {
-			$row = $sql->row();
+			$row = $res->row();
 			$perm = new Permission();
 			$perm->setId($row->id);
 			$perm->setName($row->permname);
 			$perm->SetKey($row->permkey);
 			return $perm;
 		} else {
-			return null;
+			throw new PermissionDoesNotExistException();
 		}
-  	}
-
-  	public function deletePermission($permId) {
-  		$pt = $this->perm_data;
   	}
 
 }
