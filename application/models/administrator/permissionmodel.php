@@ -88,6 +88,33 @@ class Permissionmodel extends CI_Model {
 	  	}
   	}
 
+  	public function updatePermission($perm) {
+  		$pt = $this->perm_data;
+  		$p = $this->getPermissionById($perm->getId());
+  		if ($p) {
+				$p = $this->getPermissionByKey($perm->getKey());
+				if ($p && ($p->getId() == $perm->getId())) {
+		  			$data = array(
+		  				'permkey' => $perm->getKey(),
+		  				'permname' => $perm->getName(),
+		  			);
+
+		  			$this->db->where($pt.'.id', $perm->getId());
+		  			$this->db->update($pt, $data);
+
+		  			if ($this->db->affected_rows() == 1) {
+		  				return true;
+		  			} else {
+		  				throw new PermissionUpdateFailedException($perm->getName());
+		  			}
+	  		} else {
+	  			throw new KeyAlreadyExistsException($perm->getKey());
+	  		}
+  		} else {
+  			throw new PermissionDoesNotExistException;
+  		}
+  	}
+
   	public function deletePermission($permId) {
   		$pt = $this->perm_data;
   		$this->db->delete($pt, array('id' => $permId));
@@ -125,10 +152,7 @@ class Permissionmodel extends CI_Model {
     		
 		if ($res->num_rows() > 0) {
 			$row = $res->row();
-			$perm = new Permission();
-			$perm->setId($row->id);
-			$perm->setName($row->permname);
-			$perm->SetKey($row->permkey);
+			$perm = new Permission($row->id, $row->permname, $row->permkey);
 			return $perm;
 		} else {
 			throw new PermissionDoesNotExistException();

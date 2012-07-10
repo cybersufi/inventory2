@@ -76,7 +76,6 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function newPermission() {
-		$this->output->enable_profiler(TRUE);
 		$message = $this->session->flashdata('message');
 		if (!empty($message)) {
 			$data['message'] = $this->session->flashdata('message');
@@ -125,43 +124,57 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function editPermission($permId) {
+		$this->output->enable_profiler(TRUE);
 		$this->load->model('administrator/permissionmodel', 'pm');
-		
-		$perm_name = $this->input->get_post('perm_name');
-		$perm_key = $this->input->get_post('perm_key');
+		$data['is_edit'] =  true;
+		try {
+			$perm = $this->pm->getPermissionById($permId);
+			$data['perm'] = $perm;
+		} catch (SerializableException $e) {
+			$this->session->set_flashdata('message', $e->getMessage());
+			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
+		}
+
 		$act = strtolower($this->input->get_post('action'));
 
 		switch ($act) {
 			case 'save and exit':
-				$data['is_exit'] = true;
+				$data['is_edit'] = false;
 			case 'save':
-				$perm = new Permission();
+
+				$perm_name = $this->input->get_post('perm_name');
+				$perm_key = $this->input->get_post('perm_key');
+
 				$perm->setName($perm_name);
 				$perm->SetKey($perm_key);
+
 				$this->load->model('administrator/permissionmodel','pm');
 
 				try {
-					$res = $this->pm->addPermission($perm);
-					$data['message'] = 'Permission successfuly added';
+					$res = $this->pm->updatePermission($perm);
+					$data['message'] = 'Permission successfuly updated';
 				} catch (SerializableException $e) {
 					$data['message'] = $e->getMessage();
 				}
 
 			break;
-			case 'cancel':
-				$data['is_new'] = false;
-				$data['message'] = "Adding action canceled. No permission added to database";
+			case 'exit':
+				$data['is_edit'] = false;
 			break;
 			default:
-				$data['is_new'] = true;
+				$data['is_edit'] = true;
 			break;
 		}
 
 
-		try {
-			$perm = $this->pm->getPermissionById($permId);
-		} catch (SerializableException $e) {
-			$this->session->set_flashdata('message', $e->getMessage());
+		if ($data['is_edit']) {
+			$this->prepareTemplate();
+			$this->loadContent('permform', $data);
+			$this->template->render();
+		} else {
+			if ($data['message']) {
+				$this->session->set_flashdata('message', $data['message']);
+			}
 			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 		}
 
