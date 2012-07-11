@@ -1,6 +1,6 @@
-<?php if ( ! defined('APPPATH')) exit('No direct script access allowed'); ?>  
+<?php if ( ! defined('APPPATH')) exit('No direct script access allowed'); ?>
 <?php if (isset($message)): ?>
-	<h4 class="alert_<?php echo $message['type']; ?>"><?php echo $message['message']; ?></h4>
+	<?php echo '<h4 class="alert_'.$message->type.'">'.$message->message.'</h4>'; ?>
 <?php endif; ?>
 
 <?php if (isset($is_new)): ?>

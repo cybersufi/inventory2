@@ -82,6 +82,22 @@ class SiteTemplate extends CI_Model {
 				),
 			)
 		);
+
+		$res[] = array(
+			'text' => 'Links',
+			'links' => array (
+				array (
+					'text' => 'Link List',
+					'link' => base_url('administrator/permissionmanager/permissionlist'),
+					'icon_cls' => 'icn_view_users',
+				),
+				array (
+					'text' => 'New Link',
+					'link' => base_url('administrator/permissionmanager/newpermission'),
+					'icon_cls' => 'icn_add_user',
+				),
+			)
+		);
 		
 		$res[] = array(
 			'text' => 'Admin',

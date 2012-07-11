@@ -63,28 +63,22 @@ class Permissionmodel extends CI_Model {
 
   	public function addPermission($perm) {
   		$pt = $this->perm_data;
-  		$p = $this->getPermissionByName($perm->getName());
+		$p = $this->getPermissionByKey($perm->getKey());
+		if (!$p) {
+	  		$data = array(
+				'permkey' => $perm->getKey(),
+				'permname' => $perm->getName(),
+			);
 
-  		if (!$p) {
-  			$p = $this->getPermissionByKey($perm->getKey());
-  			if (!$p) {
-		  		
-		  		$data = array(
-					'permkey' => $perm->getKey(),
-					'permname' => $perm->getName(),
-				);
-		  		$this->db->insert($pt, $data);
+	  		$this->db->insert($pt, $data);
 
-		  		if ($this->db->affected_rows() == 1) {
-		  			return true;
-		  		} else {
-		  			throw new PermissionAddFailedException();
-		  		}
-		  	} else {
-		  		throw new KeyAlreadyExistsException($perm->getKey());
-		  	}
+	  		if ($this->db->affected_rows() == 1) {
+	  			return true;
+	  		} else {
+	  			throw new PermissionAddFailedException();
+	  		}
 	  	} else {
-	  		throw new PermissionAlreadyExistsException($perm->getName());
+	  		throw new KeyAlreadyExistsException($perm->getKey());
 	  	}
   	}
 
@@ -155,7 +149,7 @@ class Permissionmodel extends CI_Model {
 			$perm = new Permission($row->id, $row->permname, $row->permkey);
 			return $perm;
 		} else {
-			throw new PermissionDoesNotExistException();
+			return null;
 		}
   	}
 

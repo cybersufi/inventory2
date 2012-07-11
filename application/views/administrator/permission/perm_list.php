@@ -1,6 +1,6 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed'); ?>
 <?php if (isset($message)): ?>
-	<h4 class="alert_info"><?php echo $message; ?></h4>
+	<?php echo '<h4 class="alert_'.$message->type.'">'.$message->message.'</h4>'; ?>
 <?php endif; ?>
 <article class="module width_full">
 	<header><h3>Permission List</h3></header>

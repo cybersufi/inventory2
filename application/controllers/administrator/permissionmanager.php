@@ -18,7 +18,7 @@ class permissionmanager extends CI_Controller {
 		foreach($config['permmanager'] as $key => $value) {
 			$this->perm_config->$key = $value;
 		}
-		print_r($this->perm_config);
+
 		$this->load->library('admin');
 	}
 
@@ -33,6 +33,7 @@ class permissionmanager extends CI_Controller {
 			$message = $this->session->flashdata('message');
 			if (!empty($message)) {
 				$data['message'] = $this->session->flashdata('message');
+				$data['message'] = json_decode($data['message']);
 			}
 
 			$start = $this->input->get_post('start');
@@ -76,22 +77,25 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function newPermission() {
+		$this->output->enable_profiler(TRUE);
 		$message = $this->session->flashdata('message');
 		if (!empty($message)) {
 			$data['message'] = $this->session->flashdata('message');
+			$data['message'] = json_decode($data['message']);
 		}
 		
-		$perm_name = $this->input->get_post('perm_name');
-		$perm_key = $this->input->get_post('perm_key');
 		$act = strtolower($this->input->get_post('action'));
 
 		switch ($act) {
 			case 'save and new':
 				$data['is_new'] = true;
 			case 'save':
-				$perm = new Permission();
-				$perm->setName($perm_name);
-				$perm->SetKey($perm_key);
+
+				$perm_name = $this->input->get_post('perm_name');
+				$perm_key = $this->input->get_post('perm_key');
+
+				$perm = new Permission(null, $perm_name, $perm_key);
+
 				$this->load->model('administrator/permissionmodel','pm');
 
 				try {
@@ -104,6 +108,7 @@ class permissionmanager extends CI_Controller {
 				} catch (SerializableException $e) {
 					$alert['type'] = 'error';
 					$alert['message'] = $e->getMessage();
+					$data['perm'] = $perm;
 					$data['message'] = json_encode($alert);
 				}
 
@@ -120,6 +125,9 @@ class permissionmanager extends CI_Controller {
 		}
 
 		if ($data['is_new']) {
+			if (isset($data['message'])) {
+				$data['message'] = json_decode($data['message']);
+			}
 			$this->prepareTemplate();
 			$this->loadContent('permform', $data);
 			$this->template->render();
@@ -132,20 +140,18 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function editPermission($permId) {
-		$this->output->enable_profiler(TRUE);
+		//$this->output->enable_profiler(TRUE);
 		$this->load->model('administrator/permissionmodel', 'pm');
 		$data['is_edit'] =  true;
 		try {
 			$perm = $this->pm->getPermissionById($permId);
 			$data['perm'] = $perm;
-			echo 'baka<br>';
 		} catch (SerializableException $e) {
 			$this->session->set_flashdata('message', $e->getMessage());
 			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 		}
 
 		$act = strtolower($this->input->get_post('action'));
-		echo "biki<br>";
 		switch ($act) {
 			case 'save and exit':
 				$data['is_edit'] = false;
@@ -153,15 +159,8 @@ class permissionmanager extends CI_Controller {
 
 				$perm_name = $this->input->get_post('perm_name');
 				$perm_key = $this->input->get_post('perm_key');
-				echo $perm_name."<br>";
-				echo $perm_key."<br>";
-				print_r($perm);
-				echo "buku<br>";
 				if ((strcmp($perm->getName(), $perm_name) != 0) || (strcmp($perm->getKey(), $perm_key) != 0)) {
-					echo "beke<br>";
 					$p = new Permission($perm->getId(), $perm_name, $perm_key);
-					print_r($p);
-					echo "boko<br>";
 					$this->load->model('administrator/permissionmodel','pm');
 
 					try {
@@ -173,10 +172,11 @@ class permissionmanager extends CI_Controller {
 							$data['perm'] = $p;
 						}
 					} catch (SerializableException $e) {
-						$data['message'] = $e->getMessage();
+						$alert['type'] = 'error';
+						$alert['message'] = $e->getMessage();
+						$data['message'] = json_encode($alert);
 					}
 				} else {
-					echo "acho<br>";
 					$alert['type'] = 'info';
 					$alert['message'] = 'Permission not updated. Nothing to change.';
 					$data['message'] = json_encode($alert);
@@ -190,19 +190,13 @@ class permissionmanager extends CI_Controller {
 			break;
 		}
 
-		echo "achi<br>";
 		if ($data['is_edit']) {
-			echo "achu<br>";
 			if (isset($data['message'])) {
 				$data['message'] = json_decode($data['message']);
 			}
-			echo "baba<br>";
 			$this->prepareTemplate();
-			echo "bibi<br>";
 			$this->loadContent('permform', $data);
-			echo "bubu<br>";
 			$this->template->render();
-			echo "ache<br>";
 		} else {
 			if ($data['message']) {
 				$this->session->set_flashdata('message', $data['message']);
