@@ -18,7 +18,7 @@ class permissionmanager extends CI_Controller {
 		foreach($config['permmanager'] as $key => $value) {
 			$this->perm_config->$key = $value;
 		}
-
+		print_r($this->perm_config);
 		$this->load->library('admin');
 	}
 
@@ -96,15 +96,23 @@ class permissionmanager extends CI_Controller {
 
 				try {
 					$res = $this->pm->addPermission($perm);
-					$data['message'] = 'Permission successfuly added';
+					if ($res) {
+						$alert['type'] = 'success';
+						$alert['message'] = 'Permission successfuly added';
+						$data['message'] = json_encode($alert);
+					}
 				} catch (SerializableException $e) {
-					$data['message'] = $e->getMessage();
+					$alert['type'] = 'error';
+					$alert['message'] = $e->getMessage();
+					$data['message'] = json_encode($alert);
 				}
 
 			break;
 			case 'cancel':
 				$data['is_new'] = false;
-				$data['message'] = "Adding action canceled. No permission added to database";
+				$alert['type'] = 'info';
+				$alert['message'] = "Adding action canceled. No permission added to database";
+				$data['message'] = json_encode($alert);
 			break;
 			default:
 				$data['is_new'] = true;
@@ -130,13 +138,14 @@ class permissionmanager extends CI_Controller {
 		try {
 			$perm = $this->pm->getPermissionById($permId);
 			$data['perm'] = $perm;
+			echo 'baka<br>';
 		} catch (SerializableException $e) {
 			$this->session->set_flashdata('message', $e->getMessage());
 			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 		}
 
 		$act = strtolower($this->input->get_post('action'));
-
+		echo "biki<br>";
 		switch ($act) {
 			case 'save and exit':
 				$data['is_edit'] = false;
@@ -144,19 +153,34 @@ class permissionmanager extends CI_Controller {
 
 				$perm_name = $this->input->get_post('perm_name');
 				$perm_key = $this->input->get_post('perm_key');
+				echo $perm_name."<br>";
+				echo $perm_key."<br>";
+				print_r($perm);
+				echo "buku<br>";
+				if ((strcmp($perm->getName(), $perm_name) != 0) || (strcmp($perm->getKey(), $perm_key) != 0)) {
+					echo "beke<br>";
+					$p = new Permission($perm->getId(), $perm_name, $perm_key);
+					print_r($p);
+					echo "boko<br>";
+					$this->load->model('administrator/permissionmodel','pm');
 
-				$perm->setName($perm_name);
-				$perm->SetKey($perm_key);
-
-				$this->load->model('administrator/permissionmodel','pm');
-
-				try {
-					$res = $this->pm->updatePermission($perm);
-					$data['message'] = 'Permission successfuly updated';
-				} catch (SerializableException $e) {
-					$data['message'] = $e->getMessage();
+					try {
+						$res = $this->pm->updatePermission($p);
+						if ($res) {
+							$alert['type'] = 'success';
+							$alert['message'] = 'Permission successfuly updated';
+							$data['message'] = json_encode($alert);
+							$data['perm'] = $p;
+						}
+					} catch (SerializableException $e) {
+						$data['message'] = $e->getMessage();
+					}
+				} else {
+					echo "acho<br>";
+					$alert['type'] = 'info';
+					$alert['message'] = 'Permission not updated. Nothing to change.';
+					$data['message'] = json_encode($alert);
 				}
-
 			break;
 			case 'exit':
 				$data['is_edit'] = false;
@@ -166,11 +190,19 @@ class permissionmanager extends CI_Controller {
 			break;
 		}
 
-
+		echo "achi<br>";
 		if ($data['is_edit']) {
+			echo "achu<br>";
+			if (isset($data['message'])) {
+				$data['message'] = json_decode($data['message']);
+			}
+			echo "baba<br>";
 			$this->prepareTemplate();
+			echo "bibi<br>";
 			$this->loadContent('permform', $data);
+			echo "bubu<br>";
 			$this->template->render();
+			echo "ache<br>";
 		} else {
 			if ($data['message']) {
 				$this->session->set_flashdata('message', $data['message']);

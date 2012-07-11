@@ -118,7 +118,7 @@ class Permissionmodel extends CI_Model {
   	public function deletePermission($permId) {
   		$pt = $this->perm_data;
   		$this->db->delete($pt, array('id' => $permId));
-  		return ($this->db->affected_rows() == 1) ? true : false ;
+  		return ($this->db->affected_rows() > 0) ? true : false ;
   	}
 
   	public function getPermissionByName($perm_name) {
