@@ -1,6 +1,6 @@
 <?php if ( ! defined('APPPATH')) exit('No direct script access allowed');
 
-class linkmanager extends CI_Controller {
+class menumanager extends CI_Controller {
 
 	private $link_config = "";
 
@@ -14,14 +14,15 @@ class linkmanager extends CI_Controller {
 		$this->config->load('administrator');
 		$config = $this->config->item('administrator');
 
-		foreach($config['linkmanager'] as $key => $value) {
+		foreach($config['menumanager'] as $key => $value) {
 			$this->link_config->$key = $value;
 		}
 
 		$this->load->library('admin');
 	}
 
-	public function menu$message = $this->session->flashdata('message');
+	public function menulist() {
+		$message = $this->session->flashdata('message');
 		if (!empty($message)) {
 			$data['message'] = $this->session->flashdata('message');
 			$data['message'] = json_decode($data['message']);
@@ -52,11 +53,11 @@ class linkmanager extends CI_Controller {
 		$filters = ($isFiltered) ? $filters : NULL;
 		$sort = ($isSorted) ? $sort : NULL;
 		
-		$this->load->model('administrator/permissionmodel','pm');
-		$collection = $this->pm->getPermissionList($start, $limit, $sort, $filters);
+		$this->load->model('administrator/menumodel','mm');
+		$collection = $this->mm->getMenuList($start, $limit, $sort, $filters);
 		
 		if ($collection) {
-			$data['menulist'] = $collection->getPermissions();
+			$data['menulist'] = $collection->getMenus();
 		} else {
 			$data['menulist'] = array();
 		}

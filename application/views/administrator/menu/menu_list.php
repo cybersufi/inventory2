@@ -3,33 +3,33 @@
 	<?php echo '<h4 class="alert_'.$message->type.'">'.$message->message.'</h4>'; ?>
 <?php endif; ?>
 <article class="module width_full">
-	<header><h3>Permission List</h3></header>
+	<header><h3>Menu List</h3></header>
 	<div class="tab_content">
 		<table class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
 					<th></th> 
-					<th>Permission Name</th>
-					<th>Permission Key</th>
+					<th>Menu Name</th>
+					<th>Menu Alias</th>
 					<th>Actions</th>
 				</tr> 
 			</thead> 
 			<tbody> 
-				<?php if (count($permlist) <= 0): ?>
+				<?php if (count($menulist) <= 0): ?>
 					<tr>
 						<td colspan="3">No data found. Please ask system administrator or try again in other time. :)</td>
 					</tr>
 				<?php else: ?>
-					<?php foreach ($permlist as $perm): ?>
+					<?php foreach ($menulist as $menu): ?>
 						<tr> 
-							<td><input type="checkbox" name="ids[]" value="<?php echo $perm->getId(); ?>"></td> 
-							<td><?php echo $perm->getName(); ?></td>
-							<td><?php echo $perm->getKey(); ?></td>
+							<td><input type="checkbox" name="ids[]" value="<?php echo $menu->getId(); ?>"></td> 
+							<td><?php echo $menu->getMenuName(); ?></td>
+							<td><?php echo $menu->getMenuAlias(); ?></td>
 							<td>
-								<a href="<?php echo base_url('administrator/permissionmanager/editpermission/'.$perm->getId()); ?>">
+								<a href="<?php echo base_url('administrator/menumanager/editmenu/'.$menu->getId()); ?>">
 									<input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_edit.png" title="Edit">
 								</a>
-								<a href="<?php echo base_url('administrator/permissionmanager/deletepermission/'.$perm->getId()); ?>">
+								<a href="<?php echo base_url('administrator/menumanager/deletemenu/'.$menu->getId()); ?>">
 									<input type="image" src="<?php echo base_url('assets/images/administrator'); ?>/icn_trash.png" title="Trash">
 								</a>
 							</td> 

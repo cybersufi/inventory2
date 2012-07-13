@@ -8,8 +8,8 @@
 	$config['administrator']['permmanager']['content_file']['permform'] = 'administrator/permission/perm_form';
 	$config['administrator']['permmanager']['content_file']['permconfirm'] = 'administrator/permission/perm_confirm';
 
-	$config['administrator']['linkmanager']['page_title'] = "Link Manager";
-	$config['administrator']['linkmanager']['content_file']['linklist'] = 'administrator/link/link_list';
-	$config['administrator']['linkmanager']['content_file']['linkform'] = 'administrator/link/link_form';
+	$config['administrator']['menumanager']['page_title'] = "Menu Manager";
+	$config['administrator']['menumanager']['content_file']['menulist'] = 'administrator/menu/menu_list';
+	$config['administrator']['menumanager']['content_file']['menuform'] = 'administrator/menu/menu_form';
 
 ?>

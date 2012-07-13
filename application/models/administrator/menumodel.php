@@ -22,7 +22,7 @@ class Menumodel extends CI_Model {
 		return $this->db->count_all_result();
 	}
 
-	public function getMenuList($start=0, $limit=0, $sorter=null, $filter=null) {
+	public function getMenuList($start=0, $limit=0, $sorter=null, $filters=null) {
 		$md = $this->menu_data;
 
 		$this->db->select($md.'.menuid, '.

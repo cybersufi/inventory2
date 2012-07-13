@@ -7,6 +7,10 @@ class MenuCollection extends Collections {
 		parent::__construct(gettype(new Link));
 	}
 
+	public function getMenus() {
+		return $this->getIterator();
+	}
+
 	public function toArray () {
 		$array = array();
 		$it = $this->getIterator();

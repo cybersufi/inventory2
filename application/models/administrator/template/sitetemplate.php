@@ -15,11 +15,11 @@ class SiteTemplate extends CI_Model {
 		$res = array();
 				
 		$res[] = array(
-			'text' => 'Content',
+			'text' => 'Menu Manager',	
 			'links' => array (
 				array (
-					'text' => 'Show Link',
-					'link' => base_url('administrator/menu'),
+					'text' => 'Menu List',
+					'link' => base_url('administrator/menumanager/menulist'),
 					'icon_cls' => 'icn_categories',
 				),
 				array (
@@ -31,7 +31,7 @@ class SiteTemplate extends CI_Model {
 		);
 		
 		$res[] = array(
-			'text' => 'User',
+			'text' => 'User Manager',
 			'links' => array (
 				array (
 					'text' => 'Show User',
@@ -52,7 +52,7 @@ class SiteTemplate extends CI_Model {
 		);
 		
 		$res[] = array(
-			'text' => 'Group',
+			'text' => 'Group Manager',
 			'links' => array (
 				array (
 					'text' => 'Show Group',
@@ -68,7 +68,7 @@ class SiteTemplate extends CI_Model {
 		);
 
 		$res[] = array(
-			'text' => 'Permission',
+			'text' => 'Permission Manager',
 			'links' => array (
 				array (
 					'text' => 'Permission List',
@@ -84,7 +84,7 @@ class SiteTemplate extends CI_Model {
 		);
 
 		$res[] = array(
-			'text' => 'Links',
+			'text' => 'Module Manager',
 			'links' => array (
 				array (
 					'text' => 'Link List',
