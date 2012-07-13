@@ -140,7 +140,6 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function editPermission($permId) {
-		//$this->output->enable_profiler(TRUE);
 		$this->load->model('administrator/permissionmodel', 'pm');
 		$data['is_edit'] =  true;
 		try {
@@ -208,18 +207,106 @@ class permissionmanager extends CI_Controller {
 	}
 
 	public function deletePermission($permId) {
+		$is_delete = false;
+		$data['is_batch'] = false;
+		$coll = new PermissionCollection();
 		$this->load->model('administrator/permissionmodel','pm');
-		$res = $this->pm->deletePermission($permId);
-		if ($res) {
-			$data['message'] = 'Permission successfuly deleted';
-		} else {
-			$data['message'] = 'Unable to delete permission. Please try again latter';
+
+		if (strlen($permId) > 0) {
+
+			$data['is_batch'] = (strcmp($permId, "batch") == 0) ? true : false;
+
+			if ($data['is_batch'] == true) {
+				$ids = $this->input->get_post('ids');
+				if (!empty($ids)) {
+					foreach ($ids as $id) {
+						$p = $this->pm->getPermissionById($id);
+						if ($p) {
+							$coll->add($p);
+						}
+					}
+				}
+			}
+			
+
+			$act = strtolower($this->input->get_post('action'));
+
+			switch ($act) {
+				case 'yes':
+
+					if ($data['is_batch'] == true) {
+						foreach ($ids as $id) {
+							try {
+								$res = $this->pm->deletePermission($id);
+								if ($res) {
+									$alert['type'] = 'success';
+									$alert['message'] = 'Permissions successfuly deleted';
+									$data['message'] = json_encode($alert);
+								}
+							} catch (SerializableException $e) {
+								$alert['type'] = 'error';
+								$alert['message'] = $e->getMessage();
+								$data['message'] = json_encode($alert);
+							}
+						}
+					} else {
+						try {
+							$res = $this->pm->deletePermission($permId);
+							if ($res) {
+								$alert['type'] = 'success';
+								$alert['message'] = 'Permission successfuly deleted';
+								$data['message'] = json_encode($alert);
+							}
+						} catch (SerializableException $e) {
+							$alert['type'] = 'error';
+							$alert['message'] = $e->getMessage();
+							$data['message'] = json_encode($alert);
+						}
+					}
+					$is_delete = false;
+					break;
+				case 'no':
+					$is_delete = false;
+					break;
+				default:
+					$is_delete = true;
+
+					if ($data['is_batch'] == true) {
+						if (!empty($ids)) {
+							$data['permilist'] = $coll;
+						} else {
+							$is_delete = false;
+						}
+					} else {
+						try {
+							$perm = $this->pm->getPermissionById($permId);
+							if ($perm) {
+								$data['perm'] = $perm;
+							}					
+						} catch (SerializableException $e) {
+							$alert['type'] = 'error';
+							$alert['message'] = $e->getMessage();
+							$data['message'] = json_encode($alert);
+							$is_delete = false;
+						}
+					}
+					break;
+			}
 		}
 
-		if ($data['message']) {
-			$this->session->set_flashdata('message', $data['message']);
+		if ($is_delete) {
+			if (isset($data['message'])) {
+				$data['message'] = json_decode($data['message']);
+			}
+			$this->prepareTemplate();
+			$this->loadContent('permconfirm', $data);
+			$this->template->render();
+		} else {
+			if ($data['message']) {
+				$this->session->set_flashdata('message', $data['message']);
+			}
+			redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 		}
-		redirect(base_url('administrator/permissionmanager/permissionlist'), 'location', 301);
 	}
 
 	private function loadContent($func_name, $data) {
@@ -230,7 +317,7 @@ class permissionmanager extends CI_Controller {
 	private function prepareTemplate() {
 		$this->load->model('administrator/template/sitetemplate', 'site_template');
 		$data['links'] = $this->site_template->siteNavigation();
-		$data['page_title'] = "";
+		$data['page_title'] = $this->perm_config->page_title;
 		$this->template->write_view('header', 'administrator/master/header_template', $data, TRUE);
 		$this->template->write_view('secondary_bar', 'administrator/master/secondarybar_template', '',TRUE);
 		$this->template->write_view('sidebar', 'administrator/master/sitelink_template', $data, TRUE);

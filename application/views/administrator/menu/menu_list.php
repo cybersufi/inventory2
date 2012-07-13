@@ -2,7 +2,6 @@
 <?php if (isset($message)): ?>
 	<?php echo '<h4 class="alert_'.$message->type.'">'.$message->message.'</h4>'; ?>
 <?php endif; ?>
-<form action="<?php echo base_url('administrator/permissionmanager/deletepermission/batch'); ?>" method="post">
 <article class="module width_full">
 	<header><h3>Permission List</h3></header>
 	<div class="tab_content">
@@ -40,14 +39,5 @@
 			</tbody> 
 		</table>
 	</div>
-	<footer>
-		<div class="submit_link">
-			test
-		</div>
-		<div class="submit_delete">
-			<input type="submit" name="action" value="Delete Selected" class="alt_btn">
-		</div>
-	</footer>
 </article>
-</form>
 <div class="clear"></div>

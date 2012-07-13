@@ -105,13 +105,19 @@ class Permissionmodel extends CI_Model {
 	  			throw new KeyAlreadyExistsException($perm->getKey());
 	  		}
   		} else {
-  			throw new PermissionDoesNotExistException;
+  			throw new PermissionDoesNotExistException();
   		}
   	}
 
   	public function deletePermission($permId) {
   		$pt = $this->perm_data;
-  		$this->db->delete($pt, array('id' => $permId));
+  		$p = $this->getPermissionById($permId);
+  		if ($p) {
+  			$this->db->delete($pt, array('id' => $permId));
+  			return true;
+  		} else {
+  			throw new PermissionDoesNotExistException();
+  		}
   		return ($this->db->affected_rows() > 0) ? true : false ;
   	}
 

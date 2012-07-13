@@ -1,18 +1,18 @@
 <?php if (!defined('APPPATH')) exit('No direct script access allowed');
 
-class Link {
+class Menu {
 	private $id;
-	private $linkname;
-	private $linkalias;
+	private $menuname;
+	private $menualias;
 	private $parent;
 	private $childrens;
 
-	function __construct($id=null, $linkname=null, $linkalias=null, $parent) {
+	function __construct($id=null, $menuname=null, $menualias=null, $parent) {
 		$this->id = $id;
-		$this->linkname = $linkname;
-		$this->linkalias = $linkalias;
+		$this->menuname = $menuname;
+		$this->menualias = $menualias;
 		$this->parent = $parent;
-		$this->childrens = new LinkCollection();
+		$this->childrens = new MenuCollection();
 	}
 
 	public function getId() {
@@ -23,24 +23,24 @@ class Link {
 		$this->id = $permId;
 	}
 
-	public function getLinkName()
+	public function getMenuName()
 	{
-		return $this->linkname;
+		return $this->menuname;
 	}
 
-	public function setLinkName($linkname)
+	public function setMenuName($menuname)
 	{
-		$this->linkname = $linkname;
+		$this->menuname = $menuname;
 	}
 
-	public function getLinkAlias()
+	public function getMenuAlias()
 	{
-		return $this->linkalias;
+		return $this->menualias;
 	}
 
-	public function setLinkAlias($alias)
+	public function setMenuAlias($alias)
 	{
-		$this->linkalias = $alias;
+		$this->menualias = $alias;
 	}
 
 	public function getParent() {

@@ -1,6 +1,6 @@
 <?php if (!defined('APPPATH')) exit('No direct script access allowed');
 
-class LinkCollection extends Collections {
+class MenuCollection extends Collections {
 	
 	public function __construct()
 	{

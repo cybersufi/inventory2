@@ -6,7 +6,7 @@ function __autoload($class_name) {
     $dirs = array('Include/','Include/Exception/',  
     			  'Include/User/', 'Include/User/Exception/', 
                   'Include/Permission/', 'Include/Permission/Exception/',
-                  'Include/Link/', 'Include/Link/Exception/',
+                  'Include/Menu/', 'Include/Menu/Exception/',
                   'Include/Role/');
     
     foreach ($dirs as $dir) {
