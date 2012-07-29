@@ -1,0 +1,402 @@
+/* FORM ------------------------------------------------------- */	
+.form-submit	{
+	background: url(../../../images/backend/forms/form_submit.gif) no-repeat;
+	border: none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 30px;
+	margin: 0 4px 0 0;
+	padding: 0;
+	text-indent: -3000px;
+	width: 80px;
+}
+
+.form-reset	{
+	background: url(../../../images/backend/forms/form_reset.gif) no-repeat;
+	border: none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 30px;
+	text-indent: -3000px;
+	width: 80px;
+}
+
+#id-form {
+	width: 100%;
+}
+
+.inp-form {
+	background: url(../../../images/backend/forms/form_inp.gif) no-repeat;
+	border: none;
+	color: #393939;
+	height: 25px;
+ 	
+	padding: 6px 6px 0 6px;
+	width: 200px;
+}
+	
+.inp-form-error	{
+	background: url(../../../images/backend/forms/form_inp_error.gif) no-repeat;
+	border: none; 
+	color: #393939;
+	height: 25px;
+	padding: 6px 6px 0 6px;
+	width: 200px;
+}
+
+.form-textarea {
+	background: url(../../../images/backend/forms/form_textarea.gif) no-repeat;
+	border: none;
+	color: #393939;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 97px;
+	overflow: auto;
+	padding: 6px 6px 0 6px;
+	width: 378px;
+}
+
+#id-form td	{
+	padding: 0 0 10px 0;
+}
+
+#id-form td.noheight	{
+	padding: 0 0 0px 0;
+}
+
+#id-form th	{
+	line-height: 28px;
+	min-width: 130px;
+	padding: 0 0 10px 0;
+	text-align: left;
+	width: 150px;
+}
+
+.styledselect-day ,
+.styledselect-month ,
+.styledselect-year {
+	border: 1px solid #acacac;
+	margin-right: 3px;
+	padding: 3px;
+	width: 64px;
+}
+
+.bubble-left {
+	float:left;
+	width:10px;
+	height:29px;
+	margin-left: 5px;
+	background: url(../../../images/backend/forms/bubble_left.gif) no-repeat;
+}
+
+.bubble-inner {
+	float:left;
+	padding: 7px 0px 0 2px;
+	color:#2e74b2; 
+	line-height: 14px;
+	font-size: 11px;
+	height:22px;
+	background: url(../../../images/backend/forms/bubble_inner.gif) repeat-x;
+}
+.bubble-right {
+	float:left;
+	width:8px;
+	height:29px;
+	background: url(../../../images/backend/forms/bubble_right.gif) right no-repeat;
+}
+.error-left {
+	float:left;
+	width:13px;
+	height:32px;
+	margin-left: 5px;
+	background: url(../../../images/backend/forms/error_left.gif) no-repeat;
+}
+
+.error-inner {
+	float:left;
+	padding: 7px 10px 0 4px;
+	color:#fff; 
+	line-height: 14px;
+	height:25px;
+	background: url(../../../images/backend/forms/error_right.gif) right  no-repeat;
+}
+.file_1 {
+	border: 1px solid #acacac;
+	padding: 5px;
+}
+
+/*  STYLED SELECTBOXES style 1 --------------------------------- */	
+
+.styledselect {
+background: #2a2a2a;
+border: 1px solid #424242;
+	color:#fff;
+	width:120px;
+	padding: 5px;
+	line-height: 14px;
+	margin-right: 6px;
+	font-size: 12px;
+}
+
+div.selectbox-wrapper	{
+	background-color: #2a2a2a;
+	border: none;
+	border-bottom: none;
+	margin: 0px;
+	margin-top: 0px;
+	max-height: 200px;
+	overflow: auto;
+	padding: 0px;
+	position: absolute;
+	text-align: left;
+	width: 400px;
+	z-index: 10;
+}
+
+div.selectbox-wrapper ul	{
+	list-style-type: none;
+	 
+	margin: 0px;
+	padding: 0px;z-index: 10;
+}
+
+div.selectbox-wrapper ul li.selected	{
+	background-color: 575757;
+	color: #fff;
+}
+
+div.selectbox-wrapper ul li.current	{
+	background-color: #575757;
+}
+
+div.selectbox-wrapper ul li	{
+	border-bottom: none;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	list-style-type: none;
+	margin: 0;
+	padding: 6px 2px 6px 10px;
+}
+
+.selectbox_styled	{
+	background: url(../../../images/backend/shared/top_search_select.gif) left no-repeat;
+	border: none;
+	border-left: none;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-family: Arial;
+	font-size: 12px;
+	height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 6px 0 0 6px;
+	text-align: left;
+	width: 105px;
+	z-index: 10;
+}
+
+/*  STYLED SELECTBOXES style 2 --------------------------------- */	
+div.selectbox-wrapper2	{
+	background-color: #e3e3e3;
+	border: none;
+	border-bottom: none;
+	margin: 0px;
+	margin-top: 0px;
+	max-height: 200px;
+	overflow: auto;
+	padding: 0px;
+	position: absolute;
+	text-align: left;
+	width: 400px;
+}
+
+div.selectbox-wrapper2 ul	{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.selectbox-wrapper2 ul li.selected2	{
+	background-color: #94b52c;
+	color: #fff;
+}
+
+div.selectbox-wrapper2 ul li.current2	{
+	background-color: #94b52c;
+	color: #fff;
+}
+
+div.selectbox-wrapper2 ul li	{
+	border-bottom: none;
+	color: #393939;
+	cursor: pointer;
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	list-style-type: none;
+	margin: 0;
+	padding: 6px 2px 6px 10px;
+}
+
+.styledselect_form_1	{
+	background: url(../../../images/backend/forms/form_select.gif) left no-repeat;
+	border: none;
+	border-left: none;
+	color: #393939;
+	cursor: pointer;
+	display: block;
+	font-family: Arial;
+	font-size: 12px;
+	height: 24px;
+	margin: 0px 0px 0px 0px;
+	padding: 7px 0 0 6px;
+	text-align: left;
+	width: 192px;
+}
+
+.styledselect_form_2	{
+	background: url(../../../images/backend/forms/form_select_small.gif) left no-repeat;
+	border: none;
+	border-left: none;
+	color: #393939;
+	cursor: pointer;
+	display: block;
+	font-family: Arial;
+	font-size: 12px;
+	height: 24px;
+	margin: 0px 0px 0px 0px;
+	padding: 7px 0 0 10px;
+	text-align: left;
+	width: 60px;
+}
+
+	
+	
+/*  STYLED SELECTBOXES style 3 --------------------------------- */	
+div.selectbox-wrapper3	{
+	background-color: #e3e3e3;
+	border: none;
+	border-bottom: none;
+	margin: 0px;
+	margin-top: 0px;
+	max-height: 200px;
+	overflow: auto;
+	padding: 0px;
+	position: absolute;
+	text-align: left;
+	width: 400px;
+}
+
+div.selectbox-wrapper3 ul	{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.selectbox-wrapper2 ul li.selected3	{
+	background-color: #94b52c;
+	color: #fff;
+}
+
+div.selectbox-wrapper2 ul li.current3	{
+	background-color: #94b52c;
+	color: #fff;
+}
+
+div.selectbox-wrapper3 ul li	{
+	border-bottom: none;
+	color: #393939;
+	cursor: pointer;
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+	list-style-type: none;
+	margin: 0;
+	padding: 6px 2px 6px 10px;
+}
+
+.styledselect_pages	{
+	background: url(../../../images/backend/table/select_number_rows.gif) left no-repeat;
+	border: none;
+	border-left: none;
+	color: #393939;
+	cursor: pointer;
+	display: block;
+	font-family: Arial;
+	font-size: 12px;
+	height: 20px;
+	line-height: 16px;
+	margin: 0px 0px 0px 0px;
+	padding: 4px 0 0 6px;
+	text-align: left;
+	width: 130px;
+}
+	
+	
+	
+	
+	
+ 
+	
+/* STYLED CHECKBOXES AND RADIOS -------------------------------------------- */	
+.ui-radio-state-disabled,
+.ui-radio-state-checked-disabled,
+.ui-radio-state-disabled-hover,
+.ui-radio-state-checked-disabled-hover	{
+	color: #999;
+}
+
+span.ui-checkbox,
+			span.ui-radio	{
+	background: url(../../../images/backend/shared/checkbox.gif) 0 -17px no-repeat;
+	display: block;
+	float: left;
+	height: 17px;
+	width: 17px;
+}
+
+span.ui-helper-hidden	{
+	display: none;
+}
+
+label	{
+	padding: 2px;
+}
+
+span.ui-radio-state-hover,
+span.ui-checkbox-state-hover	{
+	background-position: 0 0px;
+}
+
+span.ui-checkbox-state-checked	{
+	background-position: 0 0px;
+}
+
+span.ui-checkbox-state-checked-hover	{
+	background-position: 0 0px;
+}
+
+span.ui-radio-state-checked-disabled-hover,
+			span.ui-radio-state-checked-disabled,
+			span.ui-radio-state-checked	{
+	background-position: 0 -161px;
+}
+
+span.ui-radio-state-checked-hover	{
+	background-position: 0 -17px;
+}
+
+label	{
+	color: red;
+	line-height: 20px;
+}
+
+.ui-helper-hidden-accessible	{
+	left: -999em;
+	position: absolute;
+}

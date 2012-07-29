@@ -53,7 +53,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 			}
 		}
 
-		return $rowcount;
+		return $this->num_rows;;
 	}
 
 	// --------------------------------------------------------------------

@@ -9,7 +9,7 @@
 | "default" group).
 |
 */
-$template['active_template'] = 'admin';
+$template['active_template'] = 'backend';
 
 /*
 |--------------------------------------------------------------------------
@@ -71,11 +71,23 @@ $template['default']['parse_template'] = FALSE;
 | Administrator Template Configuration
 |--------------------------------------------------------------------------
 */
-$template['admin']['template'] = 'administrator/master/template';
-$template['admin']['regions'] = array ('javascript', 'header', 'secondary_bar', 'sidebar', 'messages', 'content');
-$template['admin']['parser'] = 'parser';
-$template['admin']['parser_method'] = 'parse';
-$template['admin']['parse_template'] = FALSE;
+$template['backend']['template'] = 'backend/master/template';
+$template['backend']['regions'] = array ('javascript', 'header', 'secondary_bar', 'sidebar', 'content');
+$template['backend']['parser'] = 'parser';
+$template['backend']['parser_method'] = 'parse';
+$template['backend']['parse_template'] = FALSE;
+
+
+/*
+|--------------------------------------------------------------------------
+| TT OCR Template Configuration
+|--------------------------------------------------------------------------
+*/
+$template['ttocr']['template'] = 'ttocr/master/template';
+$template['ttocr']['regions'] = array ('javascript', 'header', 'secondary_bar', 'sidebar', 'content');
+$template['ttocr']['parser'] = 'parser';
+$template['ttocr']['parser_method'] = 'parse';
+$template['ttocr']['parse_template'] = FALSE;
 
 /* End of file template.php */
 /* Location: ./system/application/config/template.php */

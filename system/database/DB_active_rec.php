@@ -989,7 +989,8 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		$row = $query->row();
-		return (int) $row->numrows;
+		//return (int) $row->numrows;
+		return (int) $query->num_rows();
 	}
 
 	// --------------------------------------------------------------------

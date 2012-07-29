@@ -64,6 +64,22 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+$db['ttocr']['hostname'] = '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.22.130.18)(PORT=1521))(CONNECT_DATA=(SID=SDPRD)))';
+$db['ttocr']['username'] = 'TACHM_MON';
+$db['ttocr']['password'] = 'TACHM_MON';
+$db['ttocr']['database'] = 'servicedesk_nts_prd';
+$db['ttocr']['dbdriver'] = 'oci8';
+$db['ttocr']['dbprefix'] = '';
+$db['ttocr']['pconnect'] = TRUE;
+$db['ttocr']['db_debug'] = TRUE;
+$db['ttocr']['cache_on'] = FALSE;
+$db['ttocr']['cachedir'] = '';
+$db['ttocr']['char_set'] = 'utf8';
+$db['ttocr']['dbcollat'] = 'utf8_general_ci';
+$db['ttocr']['swap_pre'] = '';
+$db['ttocr']['autoinit'] = TRUE;
+$db['ttocr']['stricton'] = FALSE;
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

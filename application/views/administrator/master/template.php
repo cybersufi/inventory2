@@ -11,7 +11,7 @@
 		var sitename = '<?php echo $this->CI->config->item('site_name'); ?>';
 	</script>
 	<?php
-		$this->asset->stylesheet('administrator/main/layout');
+		$this->asset->stylesheet('administrator/main/layout', 'screen');
 		$this->asset->javascript('administrator/main/jquery-1.5.2.min');
 		$this->asset->javascript('administrator/main/hideshow');
 		$this->asset->javascript('administrator/main/jquery.tablesorter.min');
@@ -20,7 +20,7 @@
 		echo $javascript;
 	?>
 	<!--[if lt IE 9]>
-	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+	<?php $this->asset->stylesheet('administrator/main/ie', 'screen'); ?>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<script type="text/javascript">
@@ -73,7 +73,6 @@
 	</aside><!-- end of sidebar -->
 	
 	<section id="main" class="column">
-		<?php echo $messages; ?>
 		<?php echo $content; ?>
 		<div class="spacer"></div>
 	</section>

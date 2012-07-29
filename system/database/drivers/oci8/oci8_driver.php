@@ -44,7 +44,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	var $dbdriver = 'oci8';
 
 	// The character used for excaping
-	var $_escape_char = '"';
+	var $_escape_char = '';
 
 	// clause and character used for LIKE escape sequences
 	var $_like_escape_str = " escape '%s' ";
